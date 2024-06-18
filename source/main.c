@@ -102,6 +102,7 @@ Character mario = {
        if(mario.jump==0){
        	player->onair=true;
        	player->grounded = false;
+       	player->walking=false;
 	   initialframe=16;
 	   finalframe=16;
 	   frame=initialframe;
@@ -138,24 +139,17 @@ mario.jump=1;
     finalframe = 16;
     
      }
-      if(mario.direction == 0 & mario.walking==true ) {
-      	setVel(200,getVelY() );
-          // Aumenta la posición en X
+if (mario.walking && mario.grounded) {
+    // Movimiento en el suelo
+    if (mario.direction == 0) {
+        setVel(200, getVelY());
+    } else if (mario.direction == 1) {
+        setVel(-200, getVelY());
     }
-    // Si está caminando hacia la izquierda
-    else if (mario.direction == 1& mario.walking==true) {
-    	setVel(-200,getVelY() );
+    
     }
-     if(mario.direction == 0 & mario.onair==true ) {
-      	setVel(210,getVelY() );
-          // si está en el aire
-    }
-    // Si está en el aire
-    else if (mario.direction == 1& mario.onair==true) {
-    	setVel(-210,getVelY() );
-    }
-     
 }
+
     void jab1(){
     	
     	state=3;
@@ -283,7 +277,7 @@ int main(int argc, char **argv)
    		 mario.posX += mario.velX / 100 * dt;
    		 mario.posY += mario.velY / 100 * dt;
     
-  
+   u32 flip = (mario.direction == 0) ? GL_FLIP_NONE : GL_FLIP_H;
     // Apply gravity
     mario.velY += 20 * dt;
     
@@ -302,6 +296,9 @@ int main(int argc, char **argv)
          // Cambia al estado de estar de pie
     }
 
+
+
+
 if (mario.velX==0 & mario.grounded==true){
 	mario.walking=false;
 	stand(); 
@@ -315,8 +312,8 @@ if (mario.velX==0 & mario.grounded==true){
 		  }
             
             // Draw animated sprite 
-            glSprite(mario.posX + sprite_offsets_x[frame], mario.posY + sprite_offsets_y[frame], GL_FLIP_NONE, &ruins[frame]);   
-
+           glSprite(mario.posX + sprite_offsets_x[frame], mario.posY + sprite_offsets_y[frame], 
+             flip, &ruins[frame]);   
             // Animate (change animation frame every 10 frames)
            delay++;
             if (delay == goal)
@@ -327,13 +324,15 @@ if (mario.velX==0 & mario.grounded==true){
                 if (frame >= finalframe)
                     frame = initialframe;
             }
-            printf("Angle %3d(actual) %3d(degrees)\n", angle, (angle * 360) / (1<<15));
-		printf("Scroll  X: %4d Y: %4d\n", scrollX, scrollY);
-		printf("Rot center X: %4d Y: %4d\n", rcX, rcY);
-		printf("Scale X: %4d Y: %4d\n", scaleX, scaleY);
-       printf("Frame: %d, PosX: %.2f, PosY: %.2f, VelX: %.2f, VelY: %.2f, State: %d\n", 
-       frame, mario.posX, mario.posY, mario.velX, mario.velY, state);
-		
+        //printf("Angle %3d(actual) %3d(degrees)\n", angle, (angle * 360) / (1<<15));
+		//printf("Scroll  X: %4d Y: %4d\n", scrollX, scrollY);
+	//	printf("Rot center X: %4d Y: %4d\n", rcX, rcY);
+		//printf("Scale X: %4d Y: %4d\n", scaleX, scaleY);
+       printf("Frame: %d, PosX: %.2f, PosY: %.2f, VelX: %.2f, VelY: %.2f, State: %d\n, dir: %d", 
+       frame, mario.posX, mario.posY, mario.velX, mario.velY, state, mario.direction);
+       printf("Mario.grounded: %s\n", (mario.grounded ? "true" : "false"));
+        printf("Mario.onair: %s\n", (mario.onair ? "true" : "false"));
+		 printf("Mario.walk: %s\n", (mario.walking ? "true" : "false"));
 
 
         scanKeys();
@@ -351,21 +350,56 @@ if (mario.velX==0 & mario.grounded==true){
 		
 		u32 keys = keysHeld();
 		
+		//moverse
 		if (keys & KEY_RIGHT) {
-    // Llamar a la función y pasar los valores de sprite_X y sprite_y
+    
    		move(&x, &y);
 		}
 		if (keys & KEY_LEFT) {
-    // Llamar a la función y pasar los valores de sprite_X y sprite_y
+   
+   
    		move(&x, &y);
+		}
+	
+		 uint16_t keysd = keysDown();
+       if (keys & KEY_RIGHT&& mario.grounded==true ) {
+    
+   		 mario.direction=0;
+		}
+		
+		
+		if (keys & KEY_LEFT && mario.grounded==true) {
+    
+   		 mario.direction=1;
+		}
+		if (keys & KEY_RIGHT&& mario.onair==true ) {
+    
+   		  setVel(220, getVelY());
+		}
+			if (keys & KEY_LEFT&& mario.onair==true&& mario.direction==0 ) {
+    
+   		  setVel(-180, getVelY());
+		}
+			if (keys & KEY_LEFT&& mario.onair==true ) {
+    
+   		  setVel(-220, getVelY());
+		}
+			if (keys & KEY_RIGHT&& mario.onair==true&& mario.direction==1 ) {
+    
+   		  setVel(180, getVelY());
+		}
+		
+		
+		if (keysd &( KEY_Y  | KEY_X)) {
+			
+			 marioJump(&mario);
+		
+   	
 		}
 		
 		
 		
-		
-		
-		if( keys & KEY_L ) angle+=20;
-		if( keys & KEY_R ) angle-=20;
+	
 	/*	if( keys & KEY_LEFT ){
 			scrollX--; 
 			
@@ -379,20 +413,7 @@ if (mario.velX==0 & mario.grounded==true){
 			scrollY++;
 		}
 	*/	 
-        uint16_t keysd = keysDown();
-       if (keys & KEY_RIGHT) {
-    
-   		 mario.direction=0;
-		}else{
-		mario.direction=1;	
-		}
-		
-		if (keysd & KEY_Y) {
-			
-			 marioJump(&mario);
-		//mariodJump(&mario);
-   	
-		}
+       
 		
 		
 		if( keys & KEY_A ){ 
@@ -403,7 +424,8 @@ if (mario.velX==0 & mario.grounded==true){
 		scaleX--; scaleY--;}  
 		if( keys & KEY_START ) rcX ++;
 		if( keys & KEY_SELECT ) rcY++;
-	
+		if( keys & KEY_L ) angle+=20;
+		if( keys & KEY_R ) angle-=20;
         //glSpriteScale(sprite_x, sprite_y, -1, GL_FLIP_H, &ruins[frame]);
         
 		bgSetCenter(bg2, rcX, rcY);
