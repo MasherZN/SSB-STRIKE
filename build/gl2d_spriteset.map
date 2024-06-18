@@ -237,7 +237,7 @@ Discarded input sections
  .text.marioJump
                 0x00000000       0x44 build/gl2d_spriteset/source/main.c.o
  .text.mariodJump
-                0x00000000       0x28 build/gl2d_spriteset/source/main.c.o
+                0x00000000       0x40 build/gl2d_spriteset/source/main.c.o
  .text.jab1     0x00000000       0x28 build/gl2d_spriteset/source/main.c.o
  .text.jab2     0x00000000       0x28 build/gl2d_spriteset/source/main.c.o
  .text.jab3     0x00000000       0x28 build/gl2d_spriteset/source/main.c.o
@@ -1067,7 +1067,7 @@ Linker script and memory map
  *(SORT_NONE(.init))
  .init          0x02000b14        0x8 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/thumb/arm946e-s/crtn.o
 
-.text           0x02000b20     0x8f78
+.text           0x02000b20     0x8fe0
  *(EXCLUDE_FILE(*.twl* *.vectors* *.itcm*) .text)
  .text          0x02000b20       0x14 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/thumb/arm946e-s\libgcc.a(_thumb1_case_uqi.o)
                 0x02000b20                __gnu_thumb1_case_uqi
@@ -1168,702 +1168,702 @@ Linker script and memory map
  .text.dmaCopy  0x02001d78       0x24 build/gl2d_spriteset/source/main.c.o
  .text.bgGetGfxPtr
                 0x02001d9c       0x6c build/gl2d_spriteset/source/main.c.o
- .text.walk     0x02001e08       0x70 build/gl2d_spriteset/source/main.c.o
-                0x02001e08                walk
+ .text.move     0x02001e08       0xb0 build/gl2d_spriteset/source/main.c.o
+                0x02001e08                move
  .text.startup.main
-                0x02001e78      0x59c build/gl2d_spriteset/source/main.c.o
-                0x02001e78                main
+                0x02001eb8      0x5c4 build/gl2d_spriteset/source/main.c.o
+                0x02001eb8                main
  .text.swiWaitForVBlank
-                0x02002414        0x8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(IntrWait.s.o)
-                0x02002414                swiWaitForVBlank
+                0x0200247c        0x8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(IntrWait.s.o)
+                0x0200247c                swiWaitForVBlank
  .text.swiIntrWait
-                0x0200241c       0x70 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(IntrWait.s.o)
-                0x0200241c                swiIntrWait
+                0x02002484       0x70 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(IntrWait.s.o)
+                0x02002484                swiIntrWait
  .text.__libnds_mpu_setup
-                0x0200248c      0x1c4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(mpu_setup.s.o)
-                0x0200248c                __libnds_mpu_setup
+                0x020024f4      0x1c4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(mpu_setup.s.o)
+                0x020024f4                __libnds_mpu_setup
  .text.memUncached
-                0x02002650       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(mpu_setup.s.o)
-                0x02002650                memUncached
+                0x020026b8       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(mpu_setup.s.o)
+                0x020026b8                memUncached
  .text.dmaSetParams
-                0x02002670       0x1c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(dma.s.o)
-                0x02002670                dmaSetParams
+                0x020026d8       0x1c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(dma.s.o)
+                0x020026d8                dmaSetParams
  .text.__aeabi_memcpy
-                0x0200268c       0xdc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(memcpy.s.o)
-                0x0200268c                __aeabi_memcpy
-                0x020026c4                __aeabi_memcpy4
-                0x020026c4                __aeabi_memcpy8
-                0x02002730                __ndsabi_memcpy2
-                0x02002754                __ndsabi_memcpy1
- .text.memcpy   0x02002768       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(memcpy.s.o)
-                0x02002768                memcpy
- .text.newRow   0x02002778       0xdc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x020026f4       0xdc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(memcpy.s.o)
+                0x020026f4                __aeabi_memcpy
+                0x0200272c                __aeabi_memcpy4
+                0x0200272c                __aeabi_memcpy8
+                0x02002798                __ndsabi_memcpy2
+                0x020027bc                __ndsabi_memcpy1
+ .text.memcpy   0x020027d0       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(memcpy.s.o)
+                0x020027d0                memcpy
+ .text.newRow   0x020027e0       0xdc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
  .text.consolePrintChar
-                0x02002854       0xe0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
-                0x02002854                consolePrintChar
+                0x020028bc       0xe0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x020028bc                consolePrintChar
  .text.con_write
-                0x02002934      0x348 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x0200299c      0x348 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
  .text.consoleLoadFont
-                0x02002c7c      0x36c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
-                0x02002c7c                consoleLoadFont
+                0x02002ce4      0x36c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x02002ce4                consoleLoadFont
  .text.consoleInit
-                0x02002fe8      0x194 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
-                0x02002fe8                consoleInit
+                0x02003050      0x194 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x02003050                consoleInit
  .text.consoleDemoInit
-                0x0200317c       0x48 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
-                0x0200317c                consoleDemoInit
+                0x020031e4       0x48 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x020031e4                consoleDemoInit
  .text.build_argv
-                0x020031c4       0x58 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(crt0_argv.c.o)
-                0x020031c4                build_argv
+                0x0200322c       0x58 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(crt0_argv.c.o)
+                0x0200322c                build_argv
  .text.putc_buffered
-                0x0200321c       0x98 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+                0x02003284       0x98 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
  .text.stderr_putc_buffered
-                0x020032b4       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+                0x0200331c       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
  .text.stdout_putc_buffered
-                0x020032d4       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+                0x0200333c       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
  .text.__sassert
-                0x02003314       0x64 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sassert.c.o)
-                0x02003314                __sassert
+                0x0200337c       0x64 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sassert.c.o)
+                0x0200337c                __sassert
  .text.initSystem
-                0x02003378      0x1a4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(initSystem.c.o)
-                0x02003378                initSystem
+                0x020033e0      0x1a4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(initSystem.c.o)
+                0x020033e0                initSystem
  .text.scanKeys
-                0x0200351c       0xc0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
-                0x0200351c                scanKeys
+                0x02003584       0xc0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+                0x02003584                scanKeys
  .text.keysHeld
-                0x020035dc        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
-                0x020035dc                keysHeld
+                0x02003644        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+                0x02003644                keysHeld
  .text.keysDown
-                0x020035e8       0x14 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
-                0x020035e8                keysDown
- .text.keysUp   0x020035fc       0x18 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
-                0x020035fc                keysUp
+                0x02003650       0x14 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+                0x02003650                keysDown
+ .text.keysUp   0x02003664       0x18 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+                0x02003664                keysUp
  .text.setTransferInputData
-                0x02003614       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
-                0x02003614                setTransferInputData
+                0x0200367c       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+                0x0200367c                setTransferInputData
  .text.systemValueHandler
-                0x02003634       0x44 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(system.c.o)
-                0x02003634                systemValueHandler
+                0x0200369c       0x44 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(system.c.o)
+                0x0200369c                systemValueHandler
  .text.systemMsgHandler
-                0x02003678       0x2c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(system.c.o)
-                0x02003678                systemMsgHandler
- .text.powerOn  0x020036a4       0x2c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(system.c.o)
-                0x020036a4                powerOn
+                0x020036e0       0x2c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(system.c.o)
+                0x020036e0                systemMsgHandler
+ .text.powerOn  0x0200370c       0x2c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(system.c.o)
+                0x0200370c                powerOn
  .text.bgIsText
-                0x020036d0        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
-                0x020036d0                bgIsText
+                0x02003738        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
+                0x02003738                bgIsText
  .text.checkIfText
-                0x020036dc       0x6c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
-                0x020036dc                checkIfText
+                0x02003744       0x6c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
+                0x02003744                checkIfText
  .text.bgUpdate
-                0x02003748       0xf4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
-                0x02003748                bgUpdate
+                0x020037b0       0xf4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
+                0x020037b0                bgUpdate
  .text.bgInit_call
-                0x0200383c       0xb0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
-                0x0200383c                bgInit_call
+                0x020038a4       0xb0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
+                0x020038a4                bgInit_call
  .text.bgInitSub_call
-                0x020038ec       0xb8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
-                0x020038ec                bgInitSub_call
+                0x02003954       0xb8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
+                0x02003954                bgInitSub_call
  .text.glScreen2D
-                0x020039a4      0x100 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
-                0x020039a4                glScreen2D
+                0x02003a0c      0x100 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
+                0x02003a0c                glScreen2D
  .text.glBegin2D
-                0x02003aa4       0xa4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
-                0x02003aa4                glBegin2D
- .text.glEnd2D  0x02003b48       0x1c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
-                0x02003b48                glEnd2D
+                0x02003b0c       0xa4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
+                0x02003b0c                glBegin2D
+ .text.glEnd2D  0x02003bb0       0x1c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
+                0x02003bb0                glEnd2D
  .text.glSprite
-                0x02003b64      0x108 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
-                0x02003b64                glSprite
+                0x02003bcc      0x108 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
+                0x02003bcc                glSprite
  .text.glLoadSpriteSet
-                0x02003c6c       0xb8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
-                0x02003c6c                glLoadSpriteSet
+                0x02003cd4       0xb8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
+                0x02003cd4                glLoadSpriteSet
  .text.setBrightness
-                0x02003d24       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(video.c.o)
-                0x02003d24                setBrightness
+                0x02003d8c       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(video.c.o)
+                0x02003d8c                setBrightness
  .text.vramDefault
-                0x02003d64       0xd0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(video.c.o)
-                0x02003d64                vramDefault
+                0x02003dcc       0xd0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(video.c.o)
+                0x02003dcc                vramDefault
  .text.vramBlock__deallocateBlock.part.0
-                0x02003e34      0x1b0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02003e9c      0x1b0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
  .text.glOrthof32
-                0x02003fe4      0x1f8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x02003fe4                glOrthof32
+                0x0200404c      0x1f8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x0200404c                glOrthof32
  .text.gluLookAtf32
-                0x020041dc      0x3dc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x020041dc                gluLookAtf32
+                0x02004244      0x3dc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004244                gluLookAtf32
  .text.glFrustumf32
-                0x020045b8      0x208 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x020045b8                glFrustumf32
+                0x02004620      0x208 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004620                glFrustumf32
  .text.gluPerspectivef32
-                0x020047c0       0x5c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x020047c0                gluPerspectivef32
+                0x02004828       0x5c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004828                gluPerspectivef32
  .text.glResetMatrixStack
-                0x0200481c       0x68 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x0200481c                glResetMatrixStack
+                0x02004884       0x68 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004884                glResetMatrixStack
  .text.glMaterialf
-                0x02004884       0x7c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x02004884                glMaterialf
+                0x020048ec       0x7c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x020048ec                glMaterialf
  .text.vramBlock_init
-                0x02004900       0x5c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x02004900                vramBlock_init
+                0x02004968       0x5c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004968                vramBlock_init
  .text.vramBlock__allocateBlock
-                0x0200495c      0x17c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x0200495c                vramBlock__allocateBlock
+                0x020049c4      0x17c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x020049c4                vramBlock__allocateBlock
  .text.vramBlock_examineSpecial
-                0x02004ad8      0x26c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x02004ad8                vramBlock_examineSpecial
+                0x02004b40      0x26c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004b40                vramBlock_examineSpecial
  .text.vramBlock_allocateSpecial
-                0x02004d44       0x6c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x02004d44                vramBlock_allocateSpecial
+                0x02004dac       0x6c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004dac                vramBlock_allocateSpecial
  .text.vramBlock_allocateBlock
-                0x02004db0       0x30 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x02004db0                vramBlock_allocateBlock
+                0x02004e18       0x30 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004e18                vramBlock_allocateBlock
  .text.vramBlock_deallocateBlock
-                0x02004de0       0x44 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x02004de0                vramBlock_deallocateBlock
+                0x02004e48       0x44 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004e48                vramBlock_deallocateBlock
  .text.removePaletteFromTexture.part.0
-                0x02004e24       0x68 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004e8c       0x68 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
  .text.glInit_C
-                0x02004e8c      0x1b8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x02004e8c                glInit_C
+                0x02004ef4      0x1b8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02004ef4                glInit_C
  .text.glGenTextures
-                0x02005044       0x80 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x02005044                glGenTextures
+                0x020050ac       0x80 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x020050ac                glGenTextures
  .text.vramGetBank
-                0x020050c4       0xb8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x020050c4                vramGetBank
+                0x0200512c       0xb8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x0200512c                vramGetBank
  .text.glBindTexture
-                0x0200517c       0x60 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x0200517c                glBindTexture
+                0x020051e4       0x60 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x020051e4                glBindTexture
  .text.glColorTableEXT
-                0x020051dc      0x1e8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x020051dc                glColorTableEXT
+                0x02005244      0x1e8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02005244                glColorTableEXT
  .text.glTexImage2D
-                0x020053c4      0x56c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x020053c4                glTexImage2D
+                0x0200542c      0x56c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x0200542c                glTexImage2D
  .text.cothread_delete_internal
-                0x02005930       0x3c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
+                0x02005998       0x3c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
  .text.cothread_main
-                0x0200596c       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
-                0x0200596c                cothread_main
+                0x020059d4       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
+                0x020059d4                cothread_main
  .text.cothread_yield
-                0x0200597c       0x14 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
-                0x0200597c                cothread_yield
+                0x020059e4       0x14 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
+                0x020059e4                cothread_yield
  .text.cothread_start
-                0x02005990       0xe8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
-                0x02005990                cothread_start
+                0x020059f8       0xe8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
+                0x020059f8                cothread_start
  .text.fifo_buffer_enqueue_block
-                0x02005a78       0x3c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02005ae0       0x3c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .text.fifo_buffer_wait_block
-                0x02005ab4       0x7c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02005b1c       0x7c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .text.fifoInternalSend.part.0
-                0x02005b30       0xc4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02005b98       0xc4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .text.fifoInternalSendInterrupt
-                0x02005bf4       0xb0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02005c5c       0xb0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .text.fifoSetValue32Handler
-                0x02005ca4       0xd4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
-                0x02005ca4                fifoSetValue32Handler
+                0x02005d0c       0xd4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02005d0c                fifoSetValue32Handler
  .text.fifoSendValue32
-                0x02005d78       0x54 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
-                0x02005d78                fifoSendValue32
+                0x02005de0       0x54 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02005de0                fifoSendValue32
  .text.fifoGetDatamsg
-                0x02005dcc       0xe8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
-                0x02005dcc                fifoGetDatamsg
+                0x02005e34       0xe8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02005e34                fifoGetDatamsg
  .text.fifoInternalRecvInterrupt
-                0x02005eb4      0x30c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02005f1c      0x30c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .text.fifoSetDatamsgHandler
-                0x020061c0       0x9c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
-                0x020061c0                fifoSetDatamsgHandler
+                0x02006228       0x9c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02006228                fifoSetDatamsgHandler
  .text.fifoInit
-                0x0200625c      0x114 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
-                0x0200625c                fifoInit
+                0x020062c4      0x114 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x020062c4                fifoInit
  .text.irqDummy
-                0x02006370        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(interrupts.c.o)
-                0x02006370                irqDummy
- .text.irqSet   0x02006374       0x78 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(interrupts.c.o)
-                0x02006374                irqSet
- .text.irqInit  0x020063ec       0x50 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(interrupts.c.o)
-                0x020063ec                irqInit
+                0x020063d8        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(interrupts.c.o)
+                0x020063d8                irqDummy
+ .text.irqSet   0x020063dc       0x78 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(interrupts.c.o)
+                0x020063dc                irqSet
+ .text.irqInit  0x02006454       0x50 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(interrupts.c.o)
+                0x02006454                irqInit
  .text.irqEnable
-                0x0200643c       0x64 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(interrupts.c.o)
-                0x0200643c                irqEnable
+                0x020064a4       0x64 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(interrupts.c.o)
+                0x020064a4                irqEnable
  .text.systemErrorExit
-                0x020064a0        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(exit.c.o)
-                0x020064a0                systemErrorExit
+                0x02006508        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(exit.c.o)
+                0x02006508                systemErrorExit
  .text.__libnds_exit
-                0x020064a4        0x8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(exit.c.o)
-                0x020064a4                __libnds_exit
- .text._exit    0x020064ac       0x78 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(exit.c.o)
-                0x020064ac                _exit
+                0x0200650c        0x8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(exit.c.o)
+                0x0200650c                __libnds_exit
+ .text._exit    0x02006514       0x78 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(exit.c.o)
+                0x02006514                _exit
  .text.retarget_lock_crash
-                0x02006524        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(locks.c.o)
+                0x0200658c        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(locks.c.o)
  .text.__retarget_lock_acquire_recursive
-                0x02006528       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(locks.c.o)
-                0x02006528                __retarget_lock_acquire_recursive
+                0x02006590       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(locks.c.o)
+                0x02006590                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x02006568       0x48 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(locks.c.o)
-                0x02006568                __retarget_lock_release_recursive
- .text.sbrk     0x020065b0       0x5c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sbrk.c.o)
-                0x020065b0                sbrk
+                0x020065d0       0x48 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(locks.c.o)
+                0x020065d0                __retarget_lock_release_recursive
+ .text.sbrk     0x02006618       0x5c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sbrk.c.o)
+                0x02006618                sbrk
  .text.__ndsabi_coro_make_noctx
-                0x0200660c       0x24 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(coroutine.c.o)
-                0x0200660c                __ndsabi_coro_make_noctx
+                0x02006674       0x24 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(coroutine.c.o)
+                0x02006674                __ndsabi_coro_make_noctx
  .text.__aeabi_read_tp
-                0x02006630        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(aeabi_read_tp.s.o)
-                0x02006630                __aeabi_read_tp
+                0x02006698        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(aeabi_read_tp.s.o)
+                0x02006698                __aeabi_read_tp
  .text.__ndsabi_coro_resume
-                0x0200663c       0x18 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(coroutine.s.o)
-                0x0200663c                __ndsabi_coro_resume
+                0x020066a4       0x18 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(coroutine.s.o)
+                0x020066a4                __ndsabi_coro_resume
  .text.__ndsabi_coro_yield
-                0x02006654       0x1c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(coroutine.s.o)
-                0x02006654                __ndsabi_coro_yield
+                0x020066bc       0x1c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(coroutine.s.o)
+                0x020066bc                __ndsabi_coro_yield
  .text.__ndsabi_coro_pop_noctx
-                0x02006670       0x34 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(coroutine.s.o)
-                0x02006670                __ndsabi_coro_pop_noctx
+                0x020066d8       0x34 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(coroutine.s.o)
+                0x020066d8                __ndsabi_coro_pop_noctx
  .text.__aeabi_memset
-                0x020066a4       0x9c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(memset.s.o)
-                0x020066a4                __aeabi_memset
-                0x020066c8                __aeabi_memset8
-                0x020066c8                __aeabi_memset4
-                0x020066d4                __ndsabi_wordset4
-                0x020066d8                __ndsabi_lwordset4
+                0x0200670c       0x9c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(memset.s.o)
+                0x0200670c                __aeabi_memset
+                0x02006730                __aeabi_memset8
+                0x02006730                __aeabi_memset4
+                0x0200673c                __ndsabi_wordset4
+                0x02006740                __ndsabi_lwordset4
  .text.__ndsabi_memset1
-                0x02006740       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(memset.s.o)
-                0x02006740                __ndsabi_memset1
- .text.memset   0x02006750       0x1c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(memset.s.o)
-                0x02006750                memset
+                0x020067a8       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(memset.s.o)
+                0x020067a8                __ndsabi_memset1
+ .text.memset   0x020067b8       0x1c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(memset.s.o)
+                0x020067b8                memset
  .text.DynamicArrayInit
-                0x0200676c       0x18 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(dynamicArray.c.o)
-                0x0200676c                DynamicArrayInit
+                0x020067d4       0x18 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(dynamicArray.c.o)
+                0x020067d4                DynamicArrayInit
  .text.DynamicArrayGet
-                0x02006784       0x18 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(dynamicArray.c.o)
-                0x02006784                DynamicArrayGet
+                0x020067ec       0x18 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(dynamicArray.c.o)
+                0x020067ec                DynamicArrayGet
  .text.DynamicArraySet
-                0x0200679c       0x48 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(dynamicArray.c.o)
-                0x0200679c                DynamicArraySet
+                0x02006804       0x48 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(dynamicArray.c.o)
+                0x02006804                DynamicArraySet
  .text.sinLutLookup
-                0x020067e4       0x4c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
-                0x020067e4                sinLutLookup
- .text.sinLerp  0x02006830       0x38 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
-                0x02006830                sinLerp
- .text.cosLerp  0x02006868       0x48 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
-                0x02006868                cosLerp
- .text.tanLerp  0x020068b0       0xb0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
-                0x020068b0                tanLerp
- .text.calloc   0x02006960       0xb4 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-calloc.c.o)
-                0x02006960                calloc
+                0x0200684c       0x4c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
+                0x0200684c                sinLutLookup
+ .text.sinLerp  0x02006898       0x38 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
+                0x02006898                sinLerp
+ .text.cosLerp  0x020068d0       0x48 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
+                0x020068d0                cosLerp
+ .text.tanLerp  0x02006918       0xb0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
+                0x02006918                tanLerp
+ .text.calloc   0x020069c8       0xb4 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-calloc.c.o)
+                0x020069c8                calloc
  .text.malloc_trim
-                0x02006a14       0x9c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-free.c.o)
-                0x02006a14                malloc_trim
- .text.free     0x02006ab0      0x164 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-free.c.o)
-                0x02006ab0                free
-                0x02006ab0                __malloc_free
- .text.malloc   0x02006c14      0x434 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-malloc.c.o)
-                0x02006c14                malloc
- .text.realloc  0x02007048      0x360 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-realloc.c.o)
-                0x02007048                realloc
+                0x02006a7c       0x9c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-free.c.o)
+                0x02006a7c                malloc_trim
+ .text.free     0x02006b18      0x164 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-free.c.o)
+                0x02006b18                free
+                0x02006b18                __malloc_free
+ .text.malloc   0x02006c7c      0x434 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-malloc.c.o)
+                0x02006c7c                malloc
+ .text.realloc  0x020070b0      0x360 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-realloc.c.o)
+                0x020070b0                realloc
  .text.__libc_init_array
-                0x020073a8       0x54 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_misc_init.c.o)
-                0x020073a8                __libc_init_array
- .text.exit     0x020073fc       0x20 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_stdlib_pico-exit.c.o)
-                0x020073fc                exit
- .text.fflush   0x0200741c       0x12 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_fflush.c.o)
-                0x0200741c                fflush
- *fill*         0x0200742e        0x2 ff
- .text.printf   0x02007430       0x20 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_printf.c.o)
-                0x02007430                printf
- .text.putchar  0x02007450       0x10 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_putchar.c.o)
-                0x02007450                putchar
- .text.puts     0x02007460       0x40 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_puts.c.o)
-                0x02007460                puts
- .text.setvbuf  0x020074a0       0x18 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_setvbuf.c.o)
-                0x020074a0                setvbuf
- .text.sscanf   0x020074b8       0x3c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_sscanf.c.o)
-                0x020074b8                sscanf
+                0x02007410       0x54 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_misc_init.c.o)
+                0x02007410                __libc_init_array
+ .text.exit     0x02007464       0x20 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_stdlib_pico-exit.c.o)
+                0x02007464                exit
+ .text.fflush   0x02007484       0x12 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_fflush.c.o)
+                0x02007484                fflush
+ *fill*         0x02007496        0x2 ff
+ .text.printf   0x02007498       0x20 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_printf.c.o)
+                0x02007498                printf
+ .text.putchar  0x020074b8       0x10 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_putchar.c.o)
+                0x020074b8                putchar
+ .text.puts     0x020074c8       0x40 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_puts.c.o)
+                0x020074c8                puts
+ .text.setvbuf  0x02007508       0x18 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_setvbuf.c.o)
+                0x02007508                setvbuf
+ .text.sscanf   0x02007520       0x3c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_sscanf.c.o)
+                0x02007520                sscanf
  .text.__ultoa_invert
-                0x020074f4       0x52 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfprintf.c.o)
- *fill*         0x02007546        0x2 ff
+                0x0200755c       0x52 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfprintf.c.o)
+ *fill*         0x020075ae        0x2 ff
  .text.skip_to_arg
-                0x02007548      0x13c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfprintf.c.o)
+                0x020075b0      0x13c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfprintf.c.o)
  .text.vfprintf
-                0x02007684      0x9f4 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfprintf.c.o)
-                0x02007684                vfprintf
-                0x02007684                __d_vfprintf
+                0x020076ec      0x9f4 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfprintf.c.o)
+                0x020076ec                vfprintf
+                0x020076ec                __d_vfprintf
  .text.scanf_getc
-                0x02008078       0x14 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
- .text.putval   0x0200808c       0x2a C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
+                0x020080e0       0x14 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
+ .text.putval   0x020080f4       0x2a C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
  .text.scanf_ungetc.isra.0
-                0x020080b6       0x14 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
+                0x0200811e       0x14 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
  .text.skip_spaces
-                0x020080ca       0x2a C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
- .text.vfscanf  0x020080f4      0x970 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
-                0x020080f4                vfscanf
-                0x020080f4                __d_vfscanf
- .text.vprintf  0x02008a64       0x14 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vprintf.c.o)
-                0x02008a64                vprintf
+                0x02008132       0x2a C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
+ .text.vfscanf  0x0200815c      0x970 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
+                0x0200815c                vfscanf
+                0x0200815c                __d_vfscanf
+ .text.vprintf  0x02008acc       0x14 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vprintf.c.o)
+                0x02008acc                vprintf
  .text.mulShift64
-                0x02008a78       0x64 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_atod_ryu.c.o)
+                0x02008ae0       0x64 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_atod_ryu.c.o)
  .text.__atod_engine
-                0x02008adc      0x158 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_atod_ryu.c.o)
-                0x02008adc                __atod_engine
+                0x02008b44      0x158 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_atod_ryu.c.o)
+                0x02008b44                __atod_engine
  .text.__atof_engine
-                0x02008c34      0x11e C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_atof_ryu.c.o)
-                0x02008c34                __atof_engine
+                0x02008c9c      0x11e C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_atof_ryu.c.o)
+                0x02008c9c                __atof_engine
  .text.mulShiftAll64
-                0x02008d52      0x208 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_dtoa_ryu.c.o)
- *fill*         0x02008f5a        0x2 ff
- .text.div10    0x02008f5c       0x28 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_dtoa_ryu.c.o)
+                0x02008dba      0x208 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_dtoa_ryu.c.o)
+ *fill*         0x02008fc2        0x2 ff
+ .text.div10    0x02008fc4       0x28 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_dtoa_ryu.c.o)
  .text.__dtoa_engine
-                0x02008f84      0x49c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_dtoa_ryu.c.o)
-                0x02008f84                __dtoa_engine
+                0x02008fec      0x49c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_dtoa_ryu.c.o)
+                0x02008fec                __dtoa_engine
  .text.mulShift32
-                0x02009420       0x4a C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_divpow2.c.o)
+                0x02009488       0x4a C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_divpow2.c.o)
  .text.__mulPow5InvDivPow2
-                0x0200946a       0x2a C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_divpow2.c.o)
-                0x0200946a                __mulPow5InvDivPow2
+                0x020094d2       0x2a C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_divpow2.c.o)
+                0x020094d2                __mulPow5InvDivPow2
  .text.__mulPow5divPow2
-                0x02009494       0x22 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_divpow2.c.o)
-                0x02009494                __mulPow5divPow2
- *fill*         0x020094b6        0x2 ff
+                0x020094fc       0x22 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_divpow2.c.o)
+                0x020094fc                __mulPow5divPow2
+ *fill*         0x0200951e        0x2 ff
  .text.__log10Pow2
-                0x020094b8        0xc C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_log10.c.o)
-                0x020094b8                __log10Pow2
+                0x02009520        0xc C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_log10.c.o)
+                0x02009520                __log10Pow2
  .text.__log10Pow5
-                0x020094c4        0xc C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_log10.c.o)
-                0x020094c4                __log10Pow5
+                0x0200952c        0xc C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_log10.c.o)
+                0x0200952c                __log10Pow5
  .text.__log2pow5
-                0x020094d0        0xc C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_log2pow5.c.o)
-                0x020094d0                __log2pow5
+                0x02009538        0xc C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_log2pow5.c.o)
+                0x02009538                __log2pow5
  .text.__ceil_log2pow5
-                0x020094dc       0x10 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_log2pow5.c.o)
-                0x020094dc                __ceil_log2pow5
+                0x02009544       0x10 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_log2pow5.c.o)
+                0x02009544                __ceil_log2pow5
  .text.__pow5bits
-                0x020094ec       0x10 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_pow5bits.c.o)
-                0x020094ec                __pow5bits
+                0x02009554       0x10 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_pow5bits.c.o)
+                0x02009554                __pow5bits
  .text.__pow5Factor
-                0x020094fc       0x2c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_table.c.o)
-                0x020094fc                __pow5Factor
+                0x02009564       0x2c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_table.c.o)
+                0x02009564                __pow5Factor
  .text.__double_computePow5
-                0x02009528      0x104 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_table.c.o)
-                0x02009528                __double_computePow5
+                0x02009590      0x104 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_table.c.o)
+                0x02009590                __double_computePow5
  .text.__double_computeInvPow5
-                0x0200962c      0x100 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_table.c.o)
-                0x0200962c                __double_computeInvPow5
+                0x02009694      0x100 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_table.c.o)
+                0x02009694                __double_computeInvPow5
  .text.__umul128
-                0x0200972c       0x6a C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_umul128.c.o)
-                0x0200972c                __umul128
+                0x02009794       0x6a C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_umul128.c.o)
+                0x02009794                __umul128
  .text.__shiftright128
-                0x02009796       0x28 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_umul128.c.o)
-                0x02009796                __shiftright128
- .text.memmove  0x020097be       0x24 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(memmove.c.o)
-                0x020097be                __aeabi_memmove8
-                0x020097be                __aeabi_memmove
-                0x020097be                __aeabi_memmove4
-                0x020097be                memmove
- *fill*         0x020097e2        0x2 ff
+                0x020097fe       0x28 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_umul128.c.o)
+                0x020097fe                __shiftright128
+ .text.memmove  0x02009826       0x24 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(memmove.c.o)
+                0x02009826                __aeabi_memmove8
+                0x02009826                __aeabi_memmove
+                0x02009826                __aeabi_memmove4
+                0x02009826                memmove
+ *fill*         0x0200984a        0x2 ff
  .text.__libc_fini_array
-                0x020097e4       0x30 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_misc_fini.c.o)
-                0x020097e4                __libc_fini_array
- .text.strchr   0x02009814       0x1e C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_string_strchr.c.o)
-                0x02009814                strchr
- .text.strnlen  0x02009832       0x16 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_string_strnlen.c.o)
-                0x02009832                strnlen
+                0x0200984c       0x30 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_misc_fini.c.o)
+                0x0200984c                __libc_fini_array
+ .text.strchr   0x0200987c       0x1e C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_string_strchr.c.o)
+                0x0200987c                strchr
+ .text.strnlen  0x0200989a       0x16 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_string_strnlen.c.o)
+                0x0200989a                strnlen
  .text.__dtox_engine
-                0x02009848      0x150 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_dtox_engine.c.o)
-                0x02009848                __dtox_engine
- .text.fgetc    0x02009998       0x48 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_fgetc.c.o)
-                0x02009998                fgetc
-                0x02009998                getc
+                0x020098b0      0x150 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_dtox_engine.c.o)
+                0x020098b0                __dtox_engine
+ .text.fgetc    0x02009a00       0x48 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_fgetc.c.o)
+                0x02009a00                fgetc
+                0x02009a00                getc
  .text.__file_str_get
-                0x020099e0       0x16 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_filestrget.c.o)
-                0x020099e0                __file_str_get
- .text.fputc    0x020099f6       0x2c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_fputc.c.o)
-                0x020099f6                fputc
-                0x020099f6                putc
- .text.ungetc   0x02009a22       0x36 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ungetc.c.o)
-                0x02009a22                ungetc
+                0x02009a48       0x16 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_filestrget.c.o)
+                0x02009a48                __file_str_get
+ .text.fputc    0x02009a5e       0x2c C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_fputc.c.o)
+                0x02009a5e                fputc
+                0x02009a5e                putc
+ .text.ungetc   0x02009a8a       0x36 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ungetc.c.o)
+                0x02009a8a                ungetc
  .text.__picolibc_non_atomic_compare_exchange_ungetc
-                0x02009a58       0x12 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_compare_exchange.c.o)
-                0x02009a58                __atomic_compare_exchange_ungetc
-                0x02009a58                __picolibc_non_atomic_compare_exchange_ungetc
+                0x02009ac0       0x12 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_compare_exchange.c.o)
+                0x02009ac0                __atomic_compare_exchange_ungetc
+                0x02009ac0                __picolibc_non_atomic_compare_exchange_ungetc
  .text.__picolibc_non_atomic_exchange_ungetc
-                0x02009a6a        0x8 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_exchange.c.o)
-                0x02009a6a                __picolibc_non_atomic_exchange_ungetc
-                0x02009a6a                __atomic_exchange_ungetc
- *fill*         0x02009a72        0x6 ff
+                0x02009ad2        0x8 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_exchange.c.o)
+                0x02009ad2                __picolibc_non_atomic_exchange_ungetc
+                0x02009ad2                __atomic_exchange_ungetc
+ *fill*         0x02009ada        0x6 ff
  .text.__picolibc_non_atomic_exchange_ungetc.__stub
-                0x02009a78       0x20 linker stubs
+                0x02009ae0       0x20 linker stubs
  *(EXCLUDE_FILE(*.twl*) .gnu.warning)
  *(EXCLUDE_FILE(*.twl*) .gnu.linkonce.t*)
  *(.glue_7)
- .glue_7        0x02009a98        0x0 linker stubs
+ .glue_7        0x02009b00        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x02009a98        0x0 linker stubs
-                0x02009a98                        . = ALIGN (0x4)
- *fill*         0x02009a98        0x0 ff
+ .glue_7t       0x02009b00        0x0 linker stubs
+                0x02009b00                        . = ALIGN (0x4)
+ *fill*         0x02009b00        0x0 ff
 
-.vfp11_veneer   0x02009a98        0x0
- .vfp11_veneer  0x02009a98        0x0 linker stubs
+.vfp11_veneer   0x02009b00        0x0
+ .vfp11_veneer  0x02009b00        0x0 linker stubs
 
-.v4_bx          0x02009a98        0x0
- .v4_bx         0x02009a98        0x0 linker stubs
+.v4_bx          0x02009b00        0x0
+ .v4_bx         0x02009b00        0x0 linker stubs
 
-.iplt           0x02009a98        0x0
- .iplt          0x02009a98        0x0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
+.iplt           0x02009b00        0x0
+ .iplt          0x02009b00        0x0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
 
-.fini           0x02009a98        0x8
+.fini           0x02009b00        0x8
  *(.fini)
- .fini          0x02009a98        0x8 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/thumb/arm946e-s/crtn.o
-                0x02009aa0                        __text_end = .
+ .fini          0x02009b00        0x8 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/thumb/arm946e-s/crtn.o
+                0x02009b08                        __text_end = .
 
-.rodata         0x02009aa0    0x1fbcc
+.rodata         0x02009b08    0x1fbfc
  *(EXCLUDE_FILE(*.twl*) .rodata)
- .rodata        0x02009aa0       0x80 build/gl2d_spriteset/source/main.c.o
- .rodata        0x02009b20       0x24 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
- .rodata        0x02009b44        0xb C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
- *fill*         0x02009b4f        0x1 ff
- .rodata        0x02009b50      0x338 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_table.c.o)
+ .rodata        0x02009b08       0x88 build/gl2d_spriteset/source/main.c.o
+ .rodata        0x02009b90       0x24 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+ .rodata        0x02009bb4        0xb C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
+ *fill*         0x02009bbf        0x1 ff
+ .rodata        0x02009bc0      0x338 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_ryu_table.c.o)
  *all.rodata*(*)
  *(EXCLUDE_FILE(*.twl*) .roda)
  *(EXCLUDE_FILE(*.twl*) .rodata.*)
  .rodata.atlas_texturePal
-                0x02009e88      0x200 build/gl2d_spriteset/graphics/atlas_texture.png.o
-                0x02009e88                atlas_texturePal
+                0x02009ef8      0x200 build/gl2d_spriteset/graphics/atlas_texture.png.o
+                0x02009ef8                atlas_texturePal
  .rodata.atlas_textureBitmap
-                0x0200a088     0x8000 build/gl2d_spriteset/graphics/atlas_texture.png.o
-                0x0200a088                atlas_textureBitmap
+                0x0200a0f8     0x8000 build/gl2d_spriteset/graphics/atlas_texture.png.o
+                0x0200a0f8                atlas_textureBitmap
  .rodata.bg1_Pal
-                0x02012088      0x200 build/gl2d_spriteset/graphics/bg1_.png.o
-                0x02012088                bg1_Pal
+                0x020120f8      0x200 build/gl2d_spriteset/graphics/bg1_.png.o
+                0x020120f8                bg1_Pal
  .rodata.bg1_Map
-                0x02012288      0x800 build/gl2d_spriteset/graphics/bg1_.png.o
-                0x02012288                bg1_Map
+                0x020122f8      0x800 build/gl2d_spriteset/graphics/bg1_.png.o
+                0x020122f8                bg1_Map
  .rodata.bg1_Tiles
-                0x02012a88     0x6ec0 build/gl2d_spriteset/graphics/bg1_.png.o
-                0x02012a88                bg1_Tiles
+                0x02012af8     0x6ec0 build/gl2d_spriteset/graphics/bg1_.png.o
+                0x02012af8                bg1_Tiles
  .rodata.bg2_Pal
-                0x02019948      0x200 build/gl2d_spriteset/graphics/bg2_.png.o
-                0x02019948                bg2_Pal
+                0x020199b8      0x200 build/gl2d_spriteset/graphics/bg2_.png.o
+                0x020199b8                bg2_Pal
  .rodata.bg2_Map
-                0x02019b48     0x2000 build/gl2d_spriteset/graphics/bg2_.png.o
-                0x02019b48                bg2_Map
+                0x02019bb8     0x2000 build/gl2d_spriteset/graphics/bg2_.png.o
+                0x02019bb8                bg2_Map
  .rodata.bg2_Tiles
-                0x0201bb48     0xd0c0 build/gl2d_spriteset/graphics/bg2_.png.o
-                0x0201bb48                bg2_Tiles
+                0x0201bbb8     0xd0c0 build/gl2d_spriteset/graphics/bg2_.png.o
+                0x0201bbb8                bg2_Tiles
  .rodata.ATLAS_texcoords
-                0x02028c08       0x88 build/gl2d_spriteset/source/atlas.c.o
-                0x02028c08                ATLAS_texcoords
+                0x02028c78       0x88 build/gl2d_spriteset/source/atlas.c.o
+                0x02028c78                ATLAS_texcoords
  .rodata.bgInit.part.0.str1.4
-                0x02028c90      0x292 build/gl2d_spriteset/source/main.c.o
+                0x02028d00      0x2ba build/gl2d_spriteset/source/main.c.o
                                  0xbf (size before relaxing)
  .rodata.main.str1.4
-                0x02028f22      0x106 build/gl2d_spriteset/source/main.c.o
+                0x02028fba      0x12e build/gl2d_spriteset/source/main.c.o
  .rodata.str1.4
-                0x02028f22        0x6 build/gl2d_spriteset/source/main.c.o
+                0x02028fba        0x6 build/gl2d_spriteset/source/main.c.o
  .rodata.con_write.str1.4
-                0x02028f22       0x30 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
- *fill*         0x02028f22        0x2 ff
+                0x02028fba       0x30 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+ *fill*         0x02028fba        0x2 ff
  .rodata.con_write
-                0x02028f24       0xd4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x02028fbc       0xd4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
  .rodata.stderr
-                0x02028ff8        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
-                0x02028ff8                stderr
+                0x02029090        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+                0x02029090                stderr
  .rodata.stdout
-                0x02028ffc        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
-                0x02028ffc                stdout
+                0x02029094        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+                0x02029094                stdout
  .rodata.__sassert.str1.4
-                0x02029000       0x8e C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sassert.c.o)
+                0x02029098       0x8e C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sassert.c.o)
  .rodata.glMaterialf
-                0x02029000       0x44 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02029098       0x44 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
  .rodata.default_fontTiles
-                0x02029044      0x300 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(default_font.png.o)
-                0x02029044                default_fontTiles
+                0x020290dc      0x300 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(default_font.png.o)
+                0x020290dc                default_fontTiles
  .rodata.TAN_LUT
-                0x02029344      0x204 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
-                0x02029344                TAN_LUT
+                0x020293dc      0x204 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
+                0x020293dc                TAN_LUT
  .rodata.SIN_LUT
-                0x02029548      0x102 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
-                0x02029548                SIN_LUT
+                0x020295e0      0x102 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(trig.c.o)
+                0x020295e0                SIN_LUT
  .rodata.str1.1
-                0x0202964a       0x22 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfprintf.c.o)
+                0x020296e2       0x22 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfprintf.c.o)
                                   0xf (size before relaxing)
  .rodata.str1.1
-                0x0202966c       0x13 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
+                0x02029704       0x13 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_tinystdio_vfscanf.c.o)
  *(EXCLUDE_FILE(*.twl*) .gnu.linkonce.r*)
-                0x02029680                        . = ALIGN (0x4)
+                0x02029718                        . = ALIGN (0x4)
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0202966c                        __exidx_start = .
+                0x02029704                        __exidx_start = .
 
-ARM.exidx       0x0202966c        0x8
+ARM.exidx       0x02029704        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x0202966c        0x8 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/thumb/arm946e-s\libgcc.a(_udivmoddi4.o)
-                0x02029674                        __exidx_end = .
-                0x02029674                        . = ALIGN (0x4)
-                0x02029674                        PROVIDE (__preinit_array_start = .)
+ .ARM.exidx     0x02029704        0x8 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/thumb/arm946e-s\libgcc.a(_udivmoddi4.o)
+                0x0202970c                        __exidx_end = .
+                0x0202970c                        . = ALIGN (0x4)
+                0x0202970c                        PROVIDE (__preinit_array_start = .)
 
 .preinit_array
  *(.preinit_array)
-                0x02029674                        PROVIDE (__preinit_array_end = .)
-                0x02029674                        PROVIDE (__init_array_start = .)
+                0x0202970c                        PROVIDE (__preinit_array_end = .)
+                0x0202970c                        PROVIDE (__init_array_start = .)
 
 .init_array
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
-                0x02029674                        PROVIDE (__init_array_end = .)
-                0x02029674                        PROVIDE (__fini_array_start = .)
+                0x0202970c                        PROVIDE (__init_array_end = .)
+                0x0202970c                        PROVIDE (__fini_array_start = .)
 
 .fini_array
  *(.fini_array)
  *(SORT_BY_NAME(.fini_array.*))
-                0x02029674                        PROVIDE (__fini_array_end = .)
+                0x0202970c                        PROVIDE (__fini_array_end = .)
 
-.ctors          0x02029674        0x0
+.ctors          0x0202970c        0x0
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT_BY_NAME(.ctors.*))
  *(.ctors)
-                0x02029674                        . = ALIGN (0x4)
+                0x0202970c                        . = ALIGN (0x4)
 
-.dtors          0x02029674        0x0
+.dtors          0x0202970c        0x0
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
-                0x02029674                        . = ALIGN (0x4)
+                0x0202970c                        . = ALIGN (0x4)
 
-.eh_frame       0x02029674        0x4
+.eh_frame       0x0202970c        0x4
  *(.eh_frame)
- .eh_frame      0x02029674        0x4 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/thumb/arm946e-s/crtend.o
-                0x02029678                        . = ALIGN (0x4)
+ .eh_frame      0x0202970c        0x4 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/thumb/arm946e-s/crtend.o
+                0x02029710                        . = ALIGN (0x4)
 
-.rel.dyn        0x02029678        0x0
- .rel.iplt      0x02029678        0x0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
+.rel.dyn        0x02029710        0x0
+ .rel.iplt      0x02029710        0x0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
 
 .gcc_except_table
-                0x02029678        0x0
+                0x02029710        0x0
  *(.gcc_except_table)
-                0x02029678                        . = ALIGN (0x4)
+                0x02029710                        . = ALIGN (0x4)
 
 .jcr
  *(.jcr)
 
-.got            0x02029678       0x10
+.got            0x02029710       0x10
  *(.got.plt)
- .got.plt       0x02029678        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
-                0x02029678                _GLOBAL_OFFSET_TABLE_
+ .got.plt       0x02029710        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
+                0x02029710                _GLOBAL_OFFSET_TABLE_
  *(.got)
- .got           0x02029684        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
+ .got           0x0202971c        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
  *(.rel.got)
- .rel.got       0x02029688        0x0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
+ .rel.got       0x02029720        0x0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
 
-.ewram          0x02029688        0x0
-                0x02029688                        __ewram_start = ABSOLUTE (.)
+.ewram          0x02029720        0x0
+                0x02029720                        __ewram_start = ABSOLUTE (.)
  *(.ewram)
  *ewram.*(.text)
-                0x02029688                        . = ALIGN (0x4)
+                0x02029720                        . = ALIGN (0x4)
 
-.data           0x02029688      0x5b8
-                0x02029688                        __data_start = ABSOLUTE (.)
+.data           0x02029720      0x5b8
+                0x02029720                        __data_start = ABSOLUTE (.)
  *(EXCLUDE_FILE(*.twl*) .data)
- .data          0x02029688       0x28 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(mpu_setup.s.o)
- .data          0x020296b0      0x410 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-malloc.c.o)
-                0x020296b0                __malloc_sbrk_base
-                0x020296b4                __malloc_trim_threshold
-                0x020296b8                __malloc_av_
+ .data          0x02029720       0x28 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(mpu_setup.s.o)
+ .data          0x02029748      0x410 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-malloc.c.o)
+                0x02029748                __malloc_sbrk_base
+                0x0202974c                __malloc_trim_threshold
+                0x02029750                __malloc_av_
  *(EXCLUDE_FILE(*.twl*) .data.*)
- .data.mario    0x02029ac0       0x68 build/gl2d_spriteset/source/main.c.o
-                0x02029ac0                mario
+ .data.mario    0x02029b58       0x68 build/gl2d_spriteset/source/main.c.o
+                0x02029b58                mario
  .data.ground_level
-                0x02029b28        0x4 build/gl2d_spriteset/source/main.c.o
-                0x02029b28                ground_level
- .data.y        0x02029b2c        0x4 build/gl2d_spriteset/source/main.c.o
-                0x02029b2c                y
- .data.x        0x02029b30        0x4 build/gl2d_spriteset/source/main.c.o
-                0x02029b30                x
- .data.goal     0x02029b34        0x4 build/gl2d_spriteset/source/main.c.o
-                0x02029b34                goal
- .data.state    0x02029b38        0x4 build/gl2d_spriteset/source/main.c.o
-                0x02029b38                state
+                0x02029bc0        0x4 build/gl2d_spriteset/source/main.c.o
+                0x02029bc0                ground_level
+ .data.y        0x02029bc4        0x4 build/gl2d_spriteset/source/main.c.o
+                0x02029bc4                y
+ .data.x        0x02029bc8        0x4 build/gl2d_spriteset/source/main.c.o
+                0x02029bc8                x
+ .data.goal     0x02029bcc        0x4 build/gl2d_spriteset/source/main.c.o
+                0x02029bcc                goal
+ .data.state    0x02029bd0        0x4 build/gl2d_spriteset/source/main.c.o
+                0x02029bd0                state
  .data.finalframe
-                0x02029b3c        0x4 build/gl2d_spriteset/source/main.c.o
-                0x02029b3c                finalframe
+                0x02029bd4        0x4 build/gl2d_spriteset/source/main.c.o
+                0x02029bd4                finalframe
  .data.firstConsoleInit.0
-                0x02029b40        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
- *fill*         0x02029b41        0x3 ff
+                0x02029bd8        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+ *fill*         0x02029bd9        0x3 ff
  .data.currentConsole
-                0x02029b44        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
-                0x02029b44                currentConsole
+                0x02029bdc        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x02029bdc                currentConsole
  .data.defaultConsole
-                0x02029b48       0x5c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
-                0x02029b48                defaultConsole
+                0x02029be0       0x5c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x02029be0                defaultConsole
  .data.__stderr
-                0x02029ba4       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+                0x02029c3c       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
  .data.__stdout
-                0x02029bb4       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
- .data.count    0x02029bc4        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
- .data.repeat   0x02029bc5        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
- .data.delay    0x02029bc6        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
- *fill*         0x02029bc7        0x1 ff
+                0x02029c4c       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+ .data.count    0x02029c5c        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+ .data.repeat   0x02029c5d        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+ .data.delay    0x02029c5e        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+ *fill*         0x02029c5f        0x1 ff
  .data.latchedArm7Buttons
-                0x02029bc8        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+                0x02029c60        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
  .data.receivedArm7Buttons
-                0x02029bca        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+                0x02029c62        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
  .data.bgTransform
-                0x02029bcc       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
-                0x02029bcc                bgTransform
+                0x02029c64       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
+                0x02029c64                bgTransform
  .data.bgScrollTable
-                0x02029bec       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
-                0x02029bec                bgScrollTable
+                0x02029c84       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
+                0x02029c84                bgScrollTable
  .data.bgControl
-                0x02029c0c       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
-                0x02029c0c                bgControl
- .data.glGlob   0x02029c2c        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x02029ca4       0x20 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
+                0x02029ca4                bgControl
+ .data.glGlob   0x02029cc4        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
  .data.fifo_freewords
-                0x02029c30        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02029cc8        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .data.fifo_receive_queue
-                0x02029c34        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02029ccc        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .data.fifo_send_queue
-                0x02029c38        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02029cd0        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .data.fifo_buffer_free
-                0x02029c3c        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x02029cd4        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  *(EXCLUDE_FILE(*.twl*) .gnu.linkonce.d*)
-                0x02029c40                        . = ALIGN (0x4)
+                0x02029cd8                        . = ALIGN (0x4)
 
-.igot.plt       0x02029c40        0x0
- .igot.plt      0x02029c40        0x0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
+.igot.plt       0x02029cd8        0x0
+ .igot.plt      0x02029cd8        0x0 C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.o
 
-.tdata          0x02029c40        0x0
-                0x02029c40                        __tdata_start = ABSOLUTE (.)
+.tdata          0x02029cd8        0x0
+                0x02029cd8                        __tdata_start = ABSOLUTE (.)
  *(.tdata .tdata.* .gnu.linkonce.td.*)
-                0x02029c40                        . = ALIGN (0x4)
-                0x02029c40                        __tdata_end = ABSOLUTE (.)
-                0x02029c40                        __data_end = .
+                0x02029cd8                        . = ALIGN (0x4)
+                0x02029cd8                        __tdata_end = ABSOLUTE (.)
+                0x02029cd8                        __data_end = .
                 0x00000000                        __tdata_size = (__tdata_end - __tdata_start)
 
-.tbss           0x02029c40        0x4
-                0x02029c40                        __tbss_start = ABSOLUTE (.)
+.tbss           0x02029cd8        0x4
+                0x02029cd8                        __tbss_start = ABSOLUTE (.)
  *(.tbss .tbss.* .gnu.linkonce.tb.*)
- .tbss          0x02029c40        0x4 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_errno_errno.c.o)
-                0x02029c40                errno
+ .tbss          0x02029cd8        0x4 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(libc_errno_errno.c.o)
+                0x02029cd8                errno
  *(.tcommon)
-                0x02029c44                        . = ALIGN (0x4)
-                0x02029c44                        __tbss_end = ABSOLUTE (.)
+                0x02029cdc                        . = ALIGN (0x4)
+                0x02029cdc                        __tbss_end = ABSOLUTE (.)
                 0x00000004                        __tbss_size = (__tbss_end - __tbss_start)
-                0x02029c40                        __bss_vma = .
+                0x02029cd8                        __bss_vma = .
 
-.dtcm           0x02ff0000        0x0 load address 0x02029c40
-                0x02029c40                        __dtcm_lma = LOADADDR (.dtcm)
+.dtcm           0x02ff0000        0x0 load address 0x02029cd8
+                0x02029cd8                        __dtcm_lma = LOADADDR (.dtcm)
                 0x02ff0000                        __dtcm_start = ABSOLUTE (.)
  *(.dtcm)
  *(.dtcm.*)
                 0x02ff0000                        . = ALIGN (0x4)
                 0x02ff0000                        __dtcm_end = ABSOLUTE (.)
 
-.itcm           0x01000100      0x2f8 load address 0x02029c40
-                0x02029c40                        __itcm_lma = LOADADDR (.itcm)
+.itcm           0x01000100      0x2f8 load address 0x02029cd8
+                0x02029cd8                        __itcm_lma = LOADADDR (.itcm)
                 0x01000100                        __itcm_start = ABSOLUTE (.)
  *(.itcm)
  *(.itcm.*)
@@ -1885,8 +1885,8 @@ ARM.exidx       0x0202966c        0x8
                 0x010003f8                        . = ALIGN (0x4)
                 0x010003f8                        __itcm_end = ABSOLUTE (.)
 
-.vectors        0x01000000        0x0 load address 0x02029f38
-                0x02029f38                        __vectors_lma = LOADADDR (.vectors)
+.vectors        0x01000000        0x0 load address 0x02029fd0
+                0x02029fd0                        __vectors_lma = LOADADDR (.vectors)
                 0x01000000                        __vectors_start = ABSOLUTE (.)
  *(.vectors .vectors.*)
                 0x01000000                        . = ALIGN (0x4)
@@ -1901,138 +1901,138 @@ ARM.exidx       0x0202966c        0x8
                 0x02ff0004                        . = ALIGN (0x4)
                 0x02ff0004                        __sbss_end = ABSOLUTE (.)
 
-.bss            0x02029c40      0xe88
-                0x02029c40                        __bss_start = ABSOLUTE (.)
-                0x02029c40                        __bss_start__ = ABSOLUTE (.)
+.bss            0x02029cd8      0xe88
+                0x02029cd8                        __bss_start = ABSOLUTE (.)
+                0x02029cd8                        __bss_start__ = ABSOLUTE (.)
  *(EXCLUDE_FILE(*.twl*) .dynbss)
  *(EXCLUDE_FILE(*.twl*) .gnu.linkonce.b*)
  *(EXCLUDE_FILE(*.twl*) .bss*)
- .bss.ruins     0x02029c40      0x154 build/gl2d_spriteset/source/main.c.o
-                0x02029c40                ruins
+ .bss.ruins     0x02029cd8      0x154 build/gl2d_spriteset/source/main.c.o
+                0x02029cd8                ruins
  .bss.initialframe
-                0x02029d94        0x4 build/gl2d_spriteset/source/main.c.o
-                0x02029d94                initialframe
- .bss.frame     0x02029d98        0x4 build/gl2d_spriteset/source/main.c.o
-                0x02029d98                frame
- .bss.delay     0x02029d9c        0x4 build/gl2d_spriteset/source/main.c.o
-                0x02029d9c                delay
+                0x02029e2c        0x4 build/gl2d_spriteset/source/main.c.o
+                0x02029e2c                initialframe
+ .bss.frame     0x02029e30        0x4 build/gl2d_spriteset/source/main.c.o
+                0x02029e30                frame
+ .bss.delay     0x02029e34        0x4 build/gl2d_spriteset/source/main.c.o
+                0x02029e34                delay
  .bss.libnds_stderr_write
-                0x02029da0        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
-                0x02029da0                libnds_stderr_write
+                0x02029e38        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x02029e38                libnds_stderr_write
  .bss.libnds_stdout_write
-                0x02029da4        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
-                0x02029da4                libnds_stdout_write
+                0x02029e3c        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x02029e3c                libnds_stdout_write
  .bss.currentCopy
-                0x02029da8       0x5c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
-                0x02029da8                currentCopy
+                0x02029e40       0x5c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(console.c.o)
+                0x02029e40                currentCopy
  .bss.stderr_buf_len
-                0x02029e04        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+                0x02029e9c        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
  .bss.stdout_buf_len
-                0x02029e06        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+                0x02029e9e        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
  .bss.stderr_buf
-                0x02029e08       0x11 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
- *fill*         0x02029e19        0x3 
+                0x02029ea0       0x11 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+ *fill*         0x02029eb1        0x3 
  .bss.stdout_buf
-                0x02029e1c       0x11 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
- *fill*         0x02029e2d        0x3 
+                0x02029eb4       0x11 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(iob.c.o)
+ *fill*         0x02029ec5        0x3 
  .bss.punixTime
-                0x02029e30        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(initSystem.c.o)
-                0x02029e30                punixTime
+                0x02029ec8        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(initSystem.c.o)
+                0x02029ec8                punixTime
  .bss.__debugger_unit
-                0x02029e34        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(initSystem.c.o)
-                0x02029e34                __debugger_unit
+                0x02029ecc        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(initSystem.c.o)
+                0x02029ecc                __debugger_unit
  .bss.__dsimode
-                0x02029e35        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(initSystem.c.o)
-                0x02029e35                __dsimode
+                0x02029ecd        0x1 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(initSystem.c.o)
+                0x02029ecd                __dsimode
  .bss.keysrepeat
-                0x02029e36        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
- .bss.keysold   0x02029e38        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
- .bss.keys      0x02029e3a        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+                0x02029ece        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+ .bss.keysold   0x02029ed0        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+ .bss.keys      0x02029ed2        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
  .bss.latchedTouchPosition
-                0x02029e3c        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+                0x02029ed4        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
  .bss.receivedTouchPosition
-                0x02029e48        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
+                0x02029ee0        0xc C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(keys.c.o)
  .bss.SDcallback
-                0x02029e54        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(system.c.o)
+                0x02029eec        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(system.c.o)
  .bss.bgIsTextLut
-                0x02029e58        0x8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
-                0x02029e58                bgIsTextLut
- .bss.bgState   0x02029e60      0x140 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
-                0x02029e60                bgState
+                0x02029ef0        0x8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
+                0x02029ef0                bgIsTextLut
+ .bss.bgState   0x02029ef8      0x140 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(background.c.o)
+                0x02029ef8                bgState
  .bss.gCurrentTexture
-                0x02029fa0        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
-                0x02029fa0                gCurrentTexture
- .bss.g_depth   0x02029fa4        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
- *fill*         0x02029fa6        0x2 
+                0x0202a038        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
+                0x0202a038                gCurrentTexture
+ .bss.g_depth   0x0202a03c        0x2 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(gl2d.c.o)
+ *fill*         0x0202a03e        0x2 
  .bss.specular_emission.0
-                0x02029fa8        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x0202a040        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
  .bss.diffuse_ambient.1
-                0x02029fac        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x0202a044        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
  .bss.glGlobalData
-                0x02029fb0       0x54 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
-                0x02029fb0                glGlobalData
+                0x0202a048       0x54 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(videoGL.c.o)
+                0x0202a048                glGlobalData
  .bss.main_args
-                0x0202a004        0x8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
- .bss.__tls     0x0202a00c        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
-                0x0202a00c                __tls
+                0x0202a09c        0x8 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
+ .bss.__tls     0x0202a0a4        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
+                0x0202a0a4                __tls
  .bss.cothread_list
-                0x0202a010       0x1c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
+                0x0202a0a8       0x1c C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
  .bss.cothread_active_thread
-                0x0202a02c        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
- .bss.free_fn   0x0202a030        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
+                0x0202a0c4        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
+ .bss.free_fn   0x0202a0c8        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(threads.c.o)
  .bss.processing
-                0x0202a034        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a0cc        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.fifo_datamsg_data
-                0x0202a038       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a0d0       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.fifo_value32_data
-                0x0202a078       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a110       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.fifo_address_data
-                0x0202a0b8       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a150       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.fifo_datamsg_func
-                0x0202a0f8       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a190       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.fifo_value32_func
-                0x0202a138       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a1d0       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.fifo_address_func
-                0x0202a178       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a210       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.fifo_value32_queue
-                0x0202a1b8       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a250       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.fifo_data_queue
-                0x0202a1f8       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a290       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.fifo_address_queue
-                0x0202a238       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a2d0       0x40 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.fifo_buffer
-                0x0202a278      0x800 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
+                0x0202a310      0x800 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(fifosystem.c.o)
  .bss.__lock___libc_recursive_mutex
-                0x0202aa78       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(locks.c.o)
-                0x0202aa78                __lock___libc_recursive_mutex
+                0x0202ab10       0x10 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(locks.c.o)
+                0x0202ab10                __lock___libc_recursive_mutex
  .bss.heap_start.0
-                0x0202aa88        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sbrk.c.o)
+                0x0202ab20        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sbrk.c.o)
  .bss.fake_heap_start
-                0x0202aa8c        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sbrk.c.o)
-                0x0202aa8c                fake_heap_start
+                0x0202ab24        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sbrk.c.o)
+                0x0202ab24                fake_heap_start
  .bss.fake_heap_end
-                0x0202aa90        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sbrk.c.o)
-                0x0202aa90                fake_heap_end
- .bss           0x0202aa94       0x34 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-malloc.c.o)
-                0x0202aa94                __malloc_top_pad
-                0x0202aa98                __malloc_current_mallinfo
-                0x0202aac0                __malloc_max_sbrked_mem
-                0x0202aac4                __malloc_max_total_mem
+                0x0202ab28        0x4 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/lib\libnds9.a(sbrk.c.o)
+                0x0202ab28                fake_heap_end
+ .bss           0x0202ab2c       0x34 C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/lib/thumb/arm946e-s\libc.a(malloc-malloc.c.o)
+                0x0202ab2c                __malloc_top_pad
+                0x0202ab30                __malloc_current_mallinfo
+                0x0202ab58                __malloc_max_sbrked_mem
+                0x0202ab5c                __malloc_max_total_mem
  *(EXCLUDE_FILE(*.twl*) COMMON)
-                0x0202aac8                        . = ALIGN (0x4)
-                0x0202aac8                        __bss_end__ = ABSOLUTE (.)
+                0x0202ab60                        . = ALIGN (0x4)
+                0x0202ab60                        __bss_end__ = ABSOLUTE (.)
 
-.tls            0x0202aac8        0x4
-                0x0202aac8                        __tls_start = ABSOLUTE (.)
-                0x0202aacc                        . = ((. + __tdata_size) + __tbss_size)
- *fill*         0x0202aac8        0x4 
-                0x0202aacc                        __tls_end = ABSOLUTE (.)
-                0x0202aacc                        __end__ = ABSOLUTE (.)
+.tls            0x0202ab60        0x4
+                0x0202ab60                        __tls_start = ABSOLUTE (.)
+                0x0202ab64                        . = ((. + __tdata_size) + __tbss_size)
+ *fill*         0x0202ab60        0x4 
+                0x0202ab64                        __tls_end = ABSOLUTE (.)
+                0x0202ab64                        __end__ = ABSOLUTE (.)
                 0x00000004                        __tls_size = (__tls_end - __tls_start)
 
-.twl            0x0202aacc        0x0 load address 0x02400000
+.twl            0x0202ab64        0x0 load address 0x02400000
                 0x02400000                        __arm9i_lma__ = LOADADDR (.twl)
-                0x0202aacc                        __arm9i_start__ = ABSOLUTE (.)
+                0x0202ab64                        __arm9i_start__ = ABSOLUTE (.)
  *(.twl)
  *(.twl.text .twl.text.*)
  *(.twl.rodata .twl.rodata.*)
@@ -2044,19 +2044,19 @@ ARM.exidx       0x0202966c        0x8
  *.twl*(.data)
  *.twl*(.data.*)
  *.twl*(.gnu.linkonce.d*)
-                0x0202aacc                        __arm9i_end__ = ABSOLUTE (.)
+                0x0202ab64                        __arm9i_end__ = ABSOLUTE (.)
 
-.twl_bss        0x0202aacc        0x0
-                0x0202aacc                        __twl_bss_start__ = ABSOLUTE (.)
+.twl_bss        0x0202ab64        0x0
+                0x0202ab64                        __twl_bss_start__ = ABSOLUTE (.)
  *(.twl_bss .twl_bss.*)
  *(.twl.bss .twl.bss.*)
  *.twl*(.dynbss)
  *.twl*(.gnu.linkonce.b*)
  *.twl*(.bss*)
  *.twl*(COMMON)
-                0x0202aacc                        . = ALIGN (0x4)
-                0x0202aacc                        __twl_bss_end__ = ABSOLUTE (.)
-                0x0202aacc                        __twl_end__ = ABSOLUTE (.)
+                0x0202ab64                        . = ALIGN (0x4)
+                0x0202ab64                        __twl_bss_end__ = ABSOLUTE (.)
+                0x0202ab64                        __twl_end__ = ABSOLUTE (.)
 
 .stab
  *(.stab)

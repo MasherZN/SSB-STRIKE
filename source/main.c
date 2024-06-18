@@ -116,8 +116,9 @@ mario.jump=1;
 }
 
  void mariodJump(Character *player) {
+ 	player->onair=true;
    player->grounded = false;
-       if(mario.jump==1){
+       if(mario.jump==1 && mario.velY<=-100){
 	   
        setVel(getVelX(), mario.velY-500);  // Velocidad inicial de salto hacia arriba
           // Ya no está en el suelo
@@ -127,7 +128,7 @@ mario.jump=1;
 }
 
 
-  void walk(int *sprite_x, int *sprite_y) {
+  void move(int *sprite_x, int *sprite_y) {
     // Cambiar el estado y las frames de mario
     if(state!=2 && mario.grounded==true){	
 	state = 2;
@@ -144,6 +145,14 @@ mario.jump=1;
     // Si está caminando hacia la izquierda
     else if (mario.direction == 1& mario.walking==true) {
     	setVel(-200,getVelY() );
+    }
+     if(mario.direction == 0 & mario.onair==true ) {
+      	setVel(210,getVelY() );
+          // si está en el aire
+    }
+    // Si está en el aire
+    else if (mario.direction == 1& mario.onair==true) {
+    	setVel(-210,getVelY() );
     }
      
 }
@@ -234,12 +243,14 @@ int main(int argc, char **argv)
     
     
      int sprite_offsets_x[] = {2, 0, -1, -1, -1, -1, 0, 2, //stand       --izq ++ der
-	                          0, -3, -5, -2, 3, -3, -5, -1   }; //walk
+	                          0, -3, -5, -2, 3, -3, -5, -1, //walk
+							  0 };
 	                          
 	                          
 	                          
-    int sprite_offsets_y[] = {1, 0, 0, 1, 2, 0, 0, 2,
-							  1,1,0,2,1,1,1,2};//walk              ++abajo --arriba
+    int sprite_offsets_y[] = {1, 0, 0, 1, 2, 0, 0, 2,   //  ++abajo --arriba
+							  1,1,0,2,1,1,1,2,         //walk   
+							  0};      
 
 
 	s16 angle = 0;
@@ -256,7 +267,8 @@ int main(int argc, char **argv)
 	s16 rcY = 96;
 	
 	float timeScale = 1;
- 	float dt = timeScale;
+	float dt = 0;
+ 	dt = timeScale;
     stand();
 	
     while (1)
@@ -267,7 +279,7 @@ int main(int argc, char **argv)
         glBegin2D();
         
         
-           dt *= timeScale;
+         dt *= timeScale;
    		 mario.posX += mario.velX / 100 * dt;
    		 mario.posY += mario.velY / 100 * dt;
     
@@ -319,8 +331,9 @@ if (mario.velX==0 & mario.grounded==true){
 		printf("Scroll  X: %4d Y: %4d\n", scrollX, scrollY);
 		printf("Rot center X: %4d Y: %4d\n", rcX, rcY);
 		printf("Scale X: %4d Y: %4d\n", scaleX, scaleY);
-         printf("mario.velY: %.2f\n", mario.velY);
-		 printf("state: %d\n", state);
+       printf("Frame: %d, PosX: %.2f, PosY: %.2f, VelX: %.2f, VelY: %.2f, State: %d\n", 
+       frame, mario.posX, mario.posY, mario.velX, mario.velY, state);
+		
 
 
         scanKeys();
@@ -340,11 +353,11 @@ if (mario.velX==0 & mario.grounded==true){
 		
 		if (keys & KEY_RIGHT) {
     // Llamar a la función y pasar los valores de sprite_X y sprite_y
-   		 walk(&x, &y);
+   		move(&x, &y);
 		}
 		if (keys & KEY_LEFT) {
     // Llamar a la función y pasar los valores de sprite_X y sprite_y
-   		 walk(&x, &y);
+   		move(&x, &y);
 		}
 		
 		
@@ -377,17 +390,10 @@ if (mario.velX==0 & mario.grounded==true){
 		if (keysd & KEY_Y) {
 			
 			 marioJump(&mario);
+		//mariodJump(&mario);
+   	
+		}
 		
-       
-   	
-		}
-			if ((keysd & KEY_Y) | mario.jump==1 ) {
-			
-			 
-		//	mariodJump(&mario);
-       
-   	
-		}
 		
 		if( keys & KEY_A ){ 
 			
