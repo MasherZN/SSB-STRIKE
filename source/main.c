@@ -8,15 +8,15 @@
 #include "fd.h"
 #include "atlas_texture.h"
 #include "atlas.h"
-float timeScale = 1;
-int delay = 0;
+ 	
+	int delay = 0;
     int frame = 0;
     int finalframe= 8;
     int initialframe=0;
     int state=1;
     int goal=5;
-    int sprite_x=120;
-    int sprite_y=127;
+    int x=120;
+    int y=127;
     int ground_level=128;
     
 
@@ -44,6 +44,9 @@ typedef struct {
     float posY;
     float posX;
     int grounded;
+    int jump;
+    int onair;
+    int walking;
 } Character;
 
 Character mario = {
@@ -56,7 +59,7 @@ Character mario = {
     .jump_duration = 2.0f,
     .weight = 98.0f,
     .landing = 0.0f,
-    .walk_speed = 1.0f,  // Por ejemplo, Mario camina más rápido
+    .walk_speed = 2.1f,  // Por ejemplo, Mario camina más rápido
     .dash_speed = 0.0f,
     .run_speed = 0.0f,
     .spot_dodge = 0.0f,
@@ -70,65 +73,80 @@ Character mario = {
     .posY=127,
     .posX=120,
     .grounded=true,
+    .jump=0,
+    .onair=true,
+    .walking=false,
 };
     
-void tick(Character *mario, float dt) {
-    dt *= timeScale;
-    mario->posX += mario->velX / 100 * dt;
-    mario->posY += mario->velY / 100 * dt;
-    
-    // Apply gravity
-    mario->velY -= 20 * dt;
-    
-    // Check if Mario is grounded
-    mario->grounded = (mario->posY <= 127);
-    
-    // If grounded, adjust posY and velocity
-    if (mario->grounded == true) {  // Use == for comparison, not =
-        mario->posY = 127;
-        if (mario->velY > 0) {
-            mario->velY = 0;
-        }
-    }
-}
-    
+
+ 	float getPosX() {return mario.posX;}
+	float getPosY() {return mario.posY;}
+	float getVelX() {return mario.velX;}
+	float getVelY() {return mario.velY;}
+    void setPos(float x, float y) {mario.posX = x; mario.posY = y;}
+	void setVel(float x, float y) {mario.velX = x; mario.velY = y;}
+	
+
      void stand(){
      	if(state!=1){
     	state=1;
     	initialframe=0;
     	frame=initialframe;
     	finalframe=8;
+    	mario.grounded=true;
+    	mario.velX=0;
     	}
     }
     void marioJump(Character *player) {
-    player->velY = 40.0f;  // Establece la velocidad vertical a -500 (ejemplo)
-    // Aquí podrías agregar lógica adicional relacionada con el salto, como cambiar la animación, ajustar el estado del jugador, etc.
+   
+       if(mario.jump==0){
+       	player->onair=true;
+       	player->grounded = false;
+	   initialframe=16;
+	   finalframe=16;
+	   frame=initialframe;
+       setVel(getVelX(), -550);  // Velocidad inicial de salto hacia arriba
+          // Ya no está en el suelo
+        
+	
+        state=7;
+         	
 }
+mario.jump=1;
+}
+
+ void mariodJump(Character *player) {
+   player->grounded = false;
+       if(mario.jump==1){
+	   
+       setVel(getVelX(), mario.velY-500);  // Velocidad inicial de salto hacia arriba
+          // Ya no está en el suelo
+         
+}
+   mario.jump=2;
+}
+
+
   void walk(int *sprite_x, int *sprite_y) {
     // Cambiar el estado y las frames de mario
-    if(state!=2){
+    if(state!=2 && mario.grounded==true){	
 	state = 2;
+	mario.walking=true;
     initialframe = 8;
     frame = initialframe;
     finalframe = 16;
+    
      }
+      if(mario.direction == 0 & mario.walking==true ) {
+      	setVel(200,getVelY() );
+          // Aumenta la posición en X
+    }
+    // Si está caminando hacia la izquierda
+    else if (mario.direction == 1& mario.walking==true) {
+    	setVel(-200,getVelY() );
+    }
      
-    if(mario.direction==0){
-    	*sprite_x += mario.walk_speed;
-    	
-	} if(mario.direction==1){
-		*sprite_x -= mario.walk_speed;
-			}
-	}
-	
-   void setVelY(Character *mario, float velY) {
-    mario->velY = velY;
-    
-    
 }
-   
- 
-
     void jab1(){
     	
     	state=3;
@@ -236,7 +254,9 @@ int main(int argc, char **argv)
 	//this is the screen pixel that the image will rotate about
 	s16 rcX = 128;
 	s16 rcY = 96;
-
+	
+	float timeScale = 1;
+ 	float dt = timeScale;
     stand();
 	
     while (1)
@@ -245,19 +265,42 @@ int main(int argc, char **argv)
         swiWaitForVBlank();
         // Set up GL2D for 2D mode
         glBegin2D();
-        tick(&mario, 1.0f / 60.0f);
-            // Fill screen with a gradient
-          /* glBoxFilledGradient(0, 0,
-                                screen_width - 50, screen_height - 50,
-                                RGB15(31, 0, 0),
-                                RGB15(31, 31, 0),
-                                RGB15(31, 0, 31),
-                                RGB15(0, 31, 31));
-*/
-            /*// Draw sprite frames individually
-            glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
-            glColor(RGB15(31, 31, 31));
-*/
+        
+        
+           dt *= timeScale;
+   		 mario.posX += mario.velX / 100 * dt;
+   		 mario.posY += mario.velY / 100 * dt;
+    
+  
+    // Apply gravity
+    mario.velY += 20 * dt;
+    
+    // Check if Mario is grounded
+ if (mario.posY >= ground_level) {
+        mario.grounded = true;
+    } else {
+        mario.grounded = false;
+    }
+    
+    // Si está en el suelo, ajustar posición y cambiar a estado de stand
+    if (mario.grounded) {
+        mario.posY = ground_level;  // Ajusta la posición Y a la altura del suelo
+        mario.velY = 0;  // Detiene cualquier velocidad vertical residual
+        mario.jump = 0;  // Reinicia el estado de salto
+         // Cambia al estado de estar de pie
+    }
+
+if (mario.velX==0 & mario.grounded==true){
+	mario.walking=false;
+	stand(); 
+}
+     
+	if (mario.onair==true && mario.grounded==true) {
+    
+    	mario.onair=false;
+        mario.velX=0;
+   		stand();
+		  }
             
             // Draw animated sprite 
             glSprite(mario.posX + sprite_offsets_x[frame], mario.posY + sprite_offsets_y[frame], GL_FLIP_NONE, &ruins[frame]);   
@@ -277,28 +320,31 @@ int main(int argc, char **argv)
 		printf("Rot center X: %4d Y: %4d\n", rcX, rcY);
 		printf("Scale X: %4d Y: %4d\n", scaleX, scaleY);
          printf("mario.velY: %.2f\n", mario.velY);
-		
+		 printf("state: %d\n", state);
 
 
         scanKeys();
         
+        
+        
         u32 keyu = keysUp();
-		
-		if ((keyu & (KEY_LEFT | KEY_RIGHT)) && state == 2) {
-    // Llamar a la función y pasar los valores de sprite_X y sprite_y
-   		stand();
-		  
-		}
+        
+        
+		if ((keyu & (KEY_LEFT | KEY_RIGHT)) && mario.grounded==true) {
+
+	stand();
+	  
+	}
 		
 		u32 keys = keysHeld();
 		
 		if (keys & KEY_RIGHT) {
     // Llamar a la función y pasar los valores de sprite_X y sprite_y
-   		 walk(&sprite_x, &sprite_y);
+   		 walk(&x, &y);
 		}
 		if (keys & KEY_LEFT) {
     // Llamar a la función y pasar los valores de sprite_X y sprite_y
-   		 walk(&sprite_x, &sprite_y);
+   		 walk(&x, &y);
 		}
 		
 		
@@ -307,7 +353,7 @@ int main(int argc, char **argv)
 		
 		if( keys & KEY_L ) angle+=20;
 		if( keys & KEY_R ) angle-=20;
-		if( keys & KEY_LEFT ){
+	/*	if( keys & KEY_LEFT ){
 			scrollX--; 
 			
 		}   
@@ -319,7 +365,7 @@ int main(int argc, char **argv)
 		if( keys & KEY_DOWN ){
 			scrollY++;
 		}
-		 
+	*/	 
         uint16_t keysd = keysDown();
        if (keys & KEY_RIGHT) {
     
@@ -328,9 +374,17 @@ int main(int argc, char **argv)
 		mario.direction=1;	
 		}
 		
-		if (keys & KEY_Y) {
+		if (keysd & KEY_Y) {
 			
 			 marioJump(&mario);
+		
+       
+   	
+		}
+			if ((keysd & KEY_Y) | mario.jump==1 ) {
+			
+			 
+		//	mariodJump(&mario);
        
    	
 		}
@@ -363,3 +417,4 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
