@@ -390,13 +390,26 @@ if (mario.velX==0 & mario.grounded==true){
 		}
 		
 		
+			if (keyu & KEY_LEFT&& mario.onair==true && mario.direction==1) {
+    
+   		  setVel(-130, getVelY());
+		}
+			if (keyu & KEY_RIGHT&& mario.onair==true && mario.direction==0) {
+    
+   		  setVel(140, getVelY());
+		}
+		
+		
 		if (keysd &( KEY_Y  | KEY_X)) {
 			
 			 marioJump(&mario);
 		
    	
 		}
-		
+			if ((keyu & (KEY_X | KEY_Y)) && mario.velY<-480 && mario.onair) { //shorthop
+    
+   		  setVel(getVelX(), -200);
+		}
 		
 		
 	
