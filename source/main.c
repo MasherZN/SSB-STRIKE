@@ -38,7 +38,7 @@ typedef struct {
     float air_dodge;
     float grab_range;
     float reflector;
-    int direction;
+    float direction;
     float velY;
     float velX;
     float posY;
@@ -47,6 +47,7 @@ typedef struct {
     int jump;
     int onair;
     int walking;
+    int dodging;
 } Character;
 
 Character mario = {
@@ -67,7 +68,7 @@ Character mario = {
     .air_dodge = 0.0f,
     .grab_range = 0.0f,
     .reflector = 0.0f,
-    .direction = 0,
+    .direction = 1,
     .velY=0,
     .velX=0,
     .posY=127,
@@ -76,6 +77,7 @@ Character mario = {
     .jump=0,
     .onair=true,
     .walking=false,
+    .dodging=false,
 };
     
 
@@ -89,6 +91,7 @@ Character mario = {
 
      void stand(){
      	if(state!=1){
+     	mario.dodging=false;
     	state=1;
     	initialframe=0;
     	frame=initialframe;
@@ -141,13 +144,28 @@ mario.jump=1;
      }
 if (mario.walking && mario.grounded) {
     // Movimiento en el suelo
-    if (mario.direction == 0) {
+    if (mario.direction == 1) {
         setVel(200, getVelY());
-    } else if (mario.direction == 1) {
+    } else if (mario.direction == -1) {
         setVel(-200, getVelY());
     }
     
     }
+}
+
+ void marioairdodge(Character *player) {
+   
+       if(mario.onair){
+       mario.dodging=true;
+	   initialframe=17;
+	   finalframe=17;
+	   frame=initialframe;
+       setVel(400*mario.direction, -40);  // Velocidad inicial de salto hacia arriba
+          // Ya no está en el suelo
+        
+	
+        state=8;
+    }     	
 }
 
     void jab1(){
@@ -277,7 +295,7 @@ int main(int argc, char **argv)
    		 mario.posX += mario.velX / 100 * dt;
    		 mario.posY += mario.velY / 100 * dt;
     
-   u32 flip = (mario.direction == 0) ? GL_FLIP_NONE : GL_FLIP_H;
+   u32 flip = (mario.direction == 1) ? GL_FLIP_NONE : GL_FLIP_H;
     // Apply gravity
     mario.velY += 20 * dt;
     
@@ -299,7 +317,7 @@ int main(int argc, char **argv)
 
 
 
-if (mario.velX==0 & mario.grounded==true){
+if ((mario.velX==0) & (mario.grounded==true)){
 	mario.walking=false;
 	stand(); 
 }
@@ -328,11 +346,12 @@ if (mario.velX==0 & mario.grounded==true){
 		//printf("Scroll  X: %4d Y: %4d\n", scrollX, scrollY);
 	//	printf("Rot center X: %4d Y: %4d\n", rcX, rcY);
 		//printf("Scale X: %4d Y: %4d\n", scaleX, scaleY);
-       printf("Frame: %d, PosX: %.2f, PosY: %.2f, VelX: %.2f, VelY: %.2f, State: %d\n, dir: %d", 
-       frame, mario.posX, mario.posY, mario.velX, mario.velY, state, mario.direction);
-       printf("Mario.grounded: %s\n", (mario.grounded ? "true" : "false"));
-        printf("Mario.onair: %s\n", (mario.onair ? "true" : "false"));
-		 printf("Mario.walk: %s\n", (mario.walking ? "true" : "false"));
+      printf("Frame: %d, PosX: %.2f, PosY: %.2f, VelX: %.2f, VelY: %.2f, State: %d\n, dir: %.2f", 
+      frame, mario.posX, mario.posY, mario.velX, mario.velY, state, mario.direction);
+       //printf("Mario.grounded: %s\n", (mario.grounded ? "true" : "false"));
+      //  printf("Mario.onair: %s\n", (mario.onair ? "true" : "false"));
+		// printf("Mario.walk: %s\n", (mario.walking ? "true" : "false"));
+		  printf("Mario.walk: %s\n", (mario.dodging ? "true" : "false"));
 
 
         scanKeys();
@@ -364,41 +383,49 @@ if (mario.velX==0 & mario.grounded==true){
 		 uint16_t keysd = keysDown();
        if (keys & KEY_RIGHT&& mario.grounded==true ) {
     
-   		 mario.direction=0;
+   		 mario.direction=1;
 		}
 		
 		
 		if (keys & KEY_LEFT && mario.grounded==true) {
     
-   		 mario.direction=1;
+   		 mario.direction=-1;
 		}
-		if (keys & KEY_RIGHT&& mario.onair==true ) {
+		if (keys & KEY_RIGHT&& mario.onair==true && mario.dodging==false ) {
     
    		  setVel(220, getVelY());
 		}
-			if (keys & KEY_LEFT&& mario.onair==true&& mario.direction==0 ) {
+			if (keys & KEY_LEFT&& mario.onair==true&& mario.direction==1  && mario.dodging==false ) {
     
    		  setVel(-180, getVelY());
 		}
-			if (keys & KEY_LEFT&& mario.onair==true ) {
+			if (keys & KEY_LEFT&& mario.onair==true  && mario.dodging==false) {
     
    		  setVel(-220, getVelY());
 		}
-			if (keys & KEY_RIGHT&& mario.onair==true&& mario.direction==1 ) {
+			if (keys & KEY_RIGHT&& mario.onair==true&& mario.direction==-1 && mario.dodging==false) {
     
    		  setVel(180, getVelY());
 		}
 		
 		
-			if (keyu & KEY_LEFT&& mario.onair==true && mario.direction==1) {
+			if (keyu & KEY_LEFT&& mario.onair==true && mario.direction==-1 && mario.dodging==false) {  // on key up facing direction
     
    		  setVel(-130, getVelY());
 		}
-			if (keyu & KEY_RIGHT&& mario.onair==true && mario.direction==0) {
+			if (keyu & KEY_RIGHT&& mario.onair==true && mario.direction==1 && mario.dodging==false) {
     
    		  setVel(140, getVelY());
 		}
 		
+			if (keyu & KEY_LEFT&& mario.onair==true && mario.direction==1 && mario.dodging==false) {  //key up opposite air direction
+    
+   		  setVel(-100, getVelY());
+		}
+			if (keyu & KEY_RIGHT&& mario.onair==true && mario.direction==-1 && mario.dodging==false) {
+    
+   		  setVel(100, getVelY());
+		}
 		
 		if (keysd &( KEY_Y  | KEY_X)) {
 			
@@ -409,9 +436,23 @@ if (mario.velX==0 & mario.grounded==true){
 			if ((keyu & (KEY_X | KEY_Y)) && mario.velY<-480 && mario.onair) { //shorthop
     
    		  setVel(getVelX(), -200);
+   		  
 		}
-		
-		
+		if (keysd & KEY_L && mario.onair) {      //airdodge
+			mario.direction=mario.direction;
+			marioairdodge(&mario);
+		}
+			if ((keysd & KEY_L) && (keysd & KEY_RIGHT) && mario.onair) {
+    	mario.direction = 1;
+    	marioairdodge(&mario);
+}
+		if ((keysd & KEY_L) && (keysd & KEY_LEFT) && mario.onair) {
+    	mario.direction = -1;
+    	marioairdodge(&mario);
+}
+   	
+	
+	
 	
 	/*	if( keys & KEY_LEFT ){
 			scrollX--; 
@@ -429,7 +470,7 @@ if (mario.velX==0 & mario.grounded==true){
        
 		
 		
-		if( keys & KEY_A ){ 
+	/*	if( keys & KEY_A ){ 
 			
 			
 		scaleX++; scaleY++;}
@@ -440,7 +481,7 @@ if (mario.velX==0 & mario.grounded==true){
 		if( keys & KEY_L ) angle+=20;
 		if( keys & KEY_R ) angle-=20;
         //glSpriteScale(sprite_x, sprite_y, -1, GL_FLIP_H, &ruins[frame]);
-        
+       */ 
 		bgSetCenter(bg2, rcX, rcY);
 		
 		bgSetRotateScale(bg2, angle, scaleX, scaleY);
