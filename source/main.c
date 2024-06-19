@@ -153,14 +153,14 @@ if (mario.walking && mario.grounded) {
     }
 }
 
- void marioairdodge(Character *player) {
+ void marioairdodge(Character *player ,float dodgex,float dodgey) {
    
        if(mario.onair){
        mario.dodging=true;
 	   initialframe=17;
 	   finalframe=17;
 	   frame=initialframe;
-       setVel(400*mario.direction, -40);  // Velocidad inicial de salto hacia arriba
+       setVel(dodgex,dodgey);  // Velocidad inicial de salto hacia arriba
           // Ya no está en el suelo
         
 	
@@ -256,7 +256,8 @@ int main(int argc, char **argv)
     
      int sprite_offsets_x[] = {2, 0, -1, -1, -1, -1, 0, 2, //stand       --izq ++ der
 	                          0, -3, -5, -2, 3, -3, -5, -1, //walk
-							  0 };
+							  0, //jump
+							  0}; //airdodge
 	                          
 	                          
 	                          
@@ -438,17 +439,17 @@ if ((mario.velX==0) & (mario.grounded==true)){
    		  setVel(getVelX(), -200);
    		  
 		}
-		if (keysd & KEY_L && mario.onair) {      //airdodge
+		if ((keysd & KEY_L) && mario.onair) {      //airdodge
 			mario.direction=mario.direction;
-			marioairdodge(&mario);
+			marioairdodge(&mario,getVelX(),-200);
 		}
-			if ((keysd & KEY_L) && (keysd & KEY_RIGHT) && mario.onair) {
+			if ((keysd & KEY_L) && (keys & KEY_RIGHT) && mario.onair) {
     	mario.direction = 1;
-    	marioairdodge(&mario);
+    	marioairdodge(&mario,340*mario.direction,-80);
 }
-		if ((keysd & KEY_L) && (keysd & KEY_LEFT) && mario.onair) {
+		if ((keysd & KEY_L) && (keys & KEY_LEFT) && mario.onair) {
     	mario.direction = -1;
-    	marioairdodge(&mario);
+    	marioairdodge(&mario,-340,-80);
 }
    	
 	
