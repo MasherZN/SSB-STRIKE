@@ -1,0 +1,10 @@
+
+BLOCKSDS	?= /opt/blocksds/core
+
+SOURCEDIRS = arm7/source common/helix
+INCLUDEDIRS	= common common/helix
+
+include $(BLOCKSDS)/sys/default_makefiles/rom_arm9arm7/Makefile.arm7
+
+# MP3 does not compile with "-mthumb" argument. Use -mthumb-interwork instead
+ARCH		:= -mthumb-interwork -mcpu=arm7tdmi
