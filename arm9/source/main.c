@@ -3,12 +3,13 @@
 #include <math.h>
 #include <gl2d.h>
 #include <nds.h>
+#include "mp3_shared.h"
 #include "bg1_.h"
 #include "bg2_.h"
 #include "fd.h"
 #include "atlas_texture.h"
 #include "atlas.h"
- 	
+
 	int delay = 0;
     int frame = 0;
     int finalframe= 8;
@@ -204,6 +205,8 @@ glImage ruins[ATLAS_NUM_IMAGES];
 
 int main(int argc, char **argv)
 {
+	mp3_init();
+
     consoleDemoInit();
 
     // Initialize OpenGL to some sensible defaults
@@ -286,6 +289,8 @@ int main(int argc, char **argv)
 	
     while (1)
     {
+        mp3_fill_buffer();
+
         // Synchronize game loop to the screen refresh
         swiWaitForVBlank();
         // Set up GL2D for 2D mode
