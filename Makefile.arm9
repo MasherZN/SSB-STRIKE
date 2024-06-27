@@ -1,4 +1,6 @@
 
+BLOCKSDS	?= /opt/blocksds/core
+
 SOURCEDIRS	= arm9/source common/helix
 INCLUDEDIRS	= common common/helix
 GFXDIRS		= graphics
