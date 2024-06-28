@@ -7,6 +7,9 @@
 #include <nds/fifocommon.h>
 #include <nds/fifomessages.h>
 
+#define DR_WAV_IMPLEMENTATION
+#include <dr_wav.h>
+
 #include "mp3_shared.h"
 #include "mp3dec.h"
 
@@ -88,7 +91,7 @@ void mp3_fill_buffer() {
 						break;
 				}
         }
-        //printf("out\n");
+        //iprintf("out\n");
 }
 
 int ds_filelength (FILE *f)
@@ -105,7 +108,6 @@ int ds_filelength (FILE *f)
 }
 
 int mp3_play_file(FILE *file, int loop, float loopsec){
-		if (mp3_is_playing()) mp3_stop();
 
         mp3_msg msg;
         int ret = 0;
@@ -253,6 +255,64 @@ int mp3_init() {
 	memset((void *)mp3_audioRight,0,MP3_AUDIO_BUFFER_SIZE);
 
 	return 1;
+}
+
+// WAV
+wav_handle* wav_load_handle(const char *filename)
+{
+	drwav wavfp;
+
+	if (!drwav_init_file(&wavfp, filename, NULL))
+	{
+		return 0;
+	}
+
+	s16* pSampleData = new s16[(u32)wavfp.totalPCMFrameCount * wavfp.channels];
+	if (pSampleData == 0)
+	{
+		drwav_uninit(&wavfp);
+		return 0;
+	}
+	u32 totalRead = drwav_read_pcm_frames(&wavfp, wavfp.totalPCMFrameCount, pSampleData);
+	if (!totalRead)
+	{
+		drwav_uninit(&wavfp);
+		delete[] pSampleData;
+		return 0;
+	}
+
+	if (wavfp.bitsPerSample == 8) // 8 bit
+	{
+		s16* _8bitdata = new s16[(u32)wavfp.totalPCMFrameCount * wavfp.channels];
+		drwav_u8_to_s16((drwav_int16*)_8bitdata, (drwav_uint8*)pSampleData, wavfp.totalPCMFrameCount);
+		delete[] pSampleData;
+		pSampleData = _8bitdata;
+	}
+
+	wav_handle* handle = new wav_handle;
+	handle->data = pSampleData;
+	handle->size = totalRead*2;
+	handle->samprate = wavfp.sampleRate;
+	drwav_uninit(&wavfp);
+
+	return handle;
+}
+
+void wav_free_handle(wav_handle* handle)
+{
+	if (!handle || !handle->data) return;
+
+	delete[] handle->data;
+	handle->data = 0;
+
+	delete handle;
+}
+
+int wav_play(wav_handle* handle)
+{
+	if (!handle || !handle->data) return -1;
+
+	return soundPlaySample(handle->data, SoundFormat_16Bit, handle->size, handle->samprate, 127, 64, false, 0);
 }
 
 } // extern "C"

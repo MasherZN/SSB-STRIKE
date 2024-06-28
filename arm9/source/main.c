@@ -1,16 +1,24 @@
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 #include <math.h>
 #include <gl2d.h>
+
+ 
 #include <nds.h>
+#include <fat.h>
+#include <filesystem.h>
 #include "mp3_shared.h"
+
+
 #include "bg1_.h"
 #include "bg2_.h"
 #include "fd.h"
 #include "atlas_texture.h"
 #include "atlas.h"
 
-	int delay = 0;
+	int delay = 0; 
     int frame = 0;
     int finalframe= 8;
     int initialframe=0;
@@ -20,7 +28,7 @@
     int y=127;
     int ground_level=128;
     
-
+wav_handle* sonido;
 typedef struct {
     const char *name;  // Nombre del personaje
     float air_acceleration;
@@ -89,7 +97,11 @@ Character mario = {
     void setPos(float x, float y) {mario.posX = x; mario.posY = y;}
 	void setVel(float x, float y) {mario.velX = x; mario.velY = y;}
 	
+     
+	  
+	
 
+	  
      void stand(){
      	if(state!=1){
      	mario.dodging=false;
@@ -104,6 +116,7 @@ Character mario = {
     void marioJump(Character *player) {
    
        if(mario.jump==0){
+       	wav_play(sonido);
        	player->onair=true;
        	player->grounded = false;
        	player->walking=false;
@@ -143,6 +156,7 @@ mario.jump=1;
     finalframe = 16;
     
      }
+     
 if (mario.walking && mario.grounded) {
     // Movimiento en el suelo
     if (mario.direction == 1) {
@@ -156,7 +170,7 @@ if (mario.walking && mario.grounded) {
 
  void marioairdodge(Character *player ,float dodgex,float dodgey) {
    
-       if(mario.onair){
+       if(mario.onair && mario.dodging==false){
        mario.dodging=true;
 	   initialframe=17;
 	   finalframe=17;
@@ -206,14 +220,15 @@ glImage ruins[ATLAS_NUM_IMAGES];
 int main(int argc, char **argv)
 {
 	mp3_init();
-
+    fatInitDefault();
     consoleDemoInit();
 
     // Initialize OpenGL to some sensible defaults
     glScreen2D();
 
     videoSetMode(MODE_5_3D);
-  
+   
+    sonido = wav_load_handle("/data/strike/sfx/mario/m_jump1.wav");
     // Setup some memory to be used for textures and for texture palettes
     
     vramSetBankA(VRAM_A_MAIN_BG);
@@ -256,6 +271,7 @@ int main(int argc, char **argv)
     printf("\n");
     printf("MODE 5_3D \n");
     
+    mp3_play("/data/strike/music/dreamland.mp3", 1,0 );
     
      int sprite_offsets_x[] = {2, 0, -1, -1, -1, -1, 0, 2, //stand       --izq ++ der
 	                          0, -3, -5, -2, 3, -3, -5, -1, //walk
@@ -354,10 +370,15 @@ if ((mario.velX==0) & (mario.grounded==true)){
 		//printf("Scale X: %4d Y: %4d\n", scaleX, scaleY);
       printf("Frame: %d, PosX: %.2f, PosY: %.2f, VelX: %.2f, VelY: %.2f, State: %d\n, dir: %.2f", 
       frame, mario.posX, mario.posY, mario.velX, mario.velY, state, mario.direction);
+      int isPlaying = mp3_is_playing();
+
+        // Imprimir el valor de mp3_is_playing()
+        printf("MP3 is playing: %s\n", (isPlaying ? "true" : "false"));
+
        //printf("Mario.grounded: %s\n", (mario.grounded ? "true" : "false"));
       //  printf("Mario.onair: %s\n", (mario.onair ? "true" : "false"));
 		// printf("Mario.walk: %s\n", (mario.walking ? "true" : "false"));
-		  printf("Mario.walk: %s\n", (mario.dodging ? "true" : "false"));
+		  printf("Mario.dodge: %s\n", (mario.dodging ? "true" : "false"));
 
 
         scanKeys();
@@ -433,6 +454,7 @@ if ((mario.velX==0) & (mario.grounded==true)){
    		  setVel(100, getVelY());
 		}
 		
+		
 		if (keysd &( KEY_Y  | KEY_X)) {
 			
 			 marioJump(&mario);
@@ -444,16 +466,19 @@ if ((mario.velX==0) & (mario.grounded==true)){
    		  setVel(getVelX(), -200);
    		  
 		}
-		if ((keysd & KEY_L) && mario.onair) {      //airdodge
+		if ((keysd & KEY_L) && !(keysHeld() & (KEY_UP | KEY_DOWN | KEY_RIGHT | KEY_LEFT)) && mario.onair) {
+    // Realiza la acción si el botón L está presionado y ninguno de los botones direccionales está presionado
+    mario.direction = mario.direction;
+    marioairdodge(&mario, getVelX(), -300);
+}
+		if ((keysd & KEY_L) && (keys & KEY_DOWN) && mario.onair ) {      //airdodge
 			mario.direction=mario.direction;
-			marioairdodge(&mario,getVelX(),-200);
+			marioairdodge(&mario,getVelX(),300);
 		}
 			if ((keysd & KEY_L) && (keys & KEY_RIGHT) && mario.onair) {
-    	mario.direction = 1;
-    	marioairdodge(&mario,340*mario.direction,-80);
+    	marioairdodge(&mario,340,-80);
 }
 		if ((keysd & KEY_L) && (keys & KEY_LEFT) && mario.onair) {
-    	mario.direction = -1;
     	marioairdodge(&mario,-340,-80);
 }
    	
