@@ -5,9 +5,9 @@
 
 #include <stdint.h>
 
-#define ATLAS_BITMAP_WIDTH   128
-#define ATLAS_BITMAP_HEIGHT  256
-#define ATLAS_NUM_IMAGES     18
+#define ATLAS_BITMAP_WIDTH   256
+#define ATLAS_BITMAP_HEIGHT  512
+#define ATLAS_NUM_IMAGES     58
 
 #define ATLAS_01_png 0
 #define ATLAS_02_png 1
@@ -27,6 +27,46 @@
 #define ATLAS_16_png 15
 #define ATLAS_17_png 16
 #define ATLAS_18_png 17
+#define ATLAS_19_png 18
+#define ATLAS_20_png 19
+#define ATLAS_21_png 20
+#define ATLAS_22_png 21
+#define ATLAS_23_png 22
+#define ATLAS_24_png 23
+#define ATLAS_25_png 24
+#define ATLAS_26_png 25
+#define ATLAS_27_png 26
+#define ATLAS_28_png 27
+#define ATLAS_29_png 28
+#define ATLAS_30_png 29
+#define ATLAS_31_png 30
+#define ATLAS_32_png 31
+#define ATLAS_33_png 32
+#define ATLAS_34_png 33
+#define ATLAS_35_png 34
+#define ATLAS_36_png 35
+#define ATLAS_37_png 36
+#define ATLAS_38_png 37
+#define ATLAS_39_png 38
+#define ATLAS_40_png 39
+#define ATLAS_41_png 40
+#define ATLAS_42_png 41
+#define ATLAS_43_png 42
+#define ATLAS_44_png 43
+#define ATLAS_45_png 44
+#define ATLAS_46_png 45
+#define ATLAS_47_png 46
+#define ATLAS_48_png 47
+#define ATLAS_49_png 48
+#define ATLAS_50_png 49
+#define ATLAS_51_png 50
+#define ATLAS_52_png 51
+#define ATLAS_53_png 52
+#define ATLAS_54_png 53
+#define ATLAS_55_png 54
+#define ATLAS_56_png 55
+#define ATLAS_57_png 56
+#define ATLAS_58_png 57
 
 extern const uint16_t ATLAS_texcoords[];
 
