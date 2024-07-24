@@ -463,6 +463,15 @@ int main(int argc, char **argv) {
 
     if ((mario.velX == 0) & (mario.grounded == true)) {
       mario.walking = false;
+      s16 scaleX = 1 << 8;
+      s16 scaleY = 1 << 8;
+      s16 rcX = 128;
+      s16 rcY = 96;
+      s16 angle = 0;
+      float timeScale = 1;
+      float dt = 0;
+      dt = timeScale;
+      mp3_play("/data/strike/music/bf.mp3", 1, 0);
       stand();
     }
 
@@ -485,6 +494,12 @@ int main(int argc, char **argv) {
     if (tapcount <= 0) {
       tapcount = 0;
     }
+            printf("Wait: %d\n", wait);
+            printf("Tapcount: %d\n", tapcount);
+            printf("Tap: %d\n", tap);
+            printf("jump count: %d\n", mario.jump);
+            printf("is attacking: %s\n", (mario.attacking ? "true" : "false"));
+            printf("MP3 is playing: %s\n", (mp3_is_playing() ? "true" : "false"));
 
     if (tap > 2) {
       tap = 2;
