@@ -250,7 +250,11 @@ void mariojab1() {
     state = 13;
     initialframe = 58;
     frame = initialframe;
+<<<<<<< HEAD
     finalframe = 63; 
+=======
+    finalframe = 63;
+>>>>>>> c44f74ab7e9ade681178be1add4d67a0b889db17
     setVel(0, 0);
   }
 }
@@ -403,7 +407,71 @@ int main(int argc, char **argv) {
 	  1,1,1,1,1,6,7,9,4,1,-3,-4,-7,-7,-4,4,3,//jab
 	  19,18}; //crouch
 
+<<<<<<< HEAD
  	  s16 scaleX = 1 << 8;
+=======
+  s16 scaleX = 1 << 8;
+  s16 scaleY = 1 << 8;
+  s16 rcX = 128;
+  s16 rcY = 96;
+  s16 angle = 0;
+  float timeScale = 1;
+  float dt = 0;
+  dt = timeScale;
+  mp3_play("/data/strike/music/bf.mp3", 1, 0);
+  int isPlaying = mp3_is_playing();
+  int playvictory=false;
+  
+  stand();
+
+  while (1) {
+    mp3_fill_buffer();
+
+    // Synchronize game loop to the screen refresh
+    swiWaitForVBlank();
+    // Set up GL2D for 2D mode
+    glBegin2D();
+
+    printf("Wait: %d\n", wait);
+    printf("Tapcount: %d\n", tapcount);
+    printf("Tap: %d\n", tap);
+    printf("frame: %d\n", frame);
+    printf("state: %d\n", state);
+    printf("jump count: %d\n", mario.jump);
+    printf("is attacking: %s\n", (mario.attacking ? "true" : "false"));
+    printf("MP3 is playing: %s\n", (isPlaying ? "true" : "false"));
+
+    u32 flip = (mario.direction == 1) ? GL_FLIP_NONE : GL_FLIP_H;
+
+    if (draw) {
+      glSprite(mario.posX + sprite_offsets_x[frame],
+               mario.posY + sprite_offsets_y[frame], flip, &ruins[frame]);
+    }
+
+    dt *= timeScale;
+    mario.posX += mario.velX / 100 * dt;
+    mario.posY += mario.velY / 100 * dt;
+    // gravedad
+    mario.velY += 20 * dt;
+
+    // revisar si mario esta en el suelo
+    if (mario.posY >= ground_level) {
+      mario.grounded = true;
+    } else {
+      mario.grounded = false;
+    }
+
+    // mario está en el suelo
+    if (mario.grounded) {
+      mario.posY = ground_level;
+      mario.velY = 0;
+      mario.jump = 0;
+    }
+
+    if ((mario.velX == 0) & (mario.grounded == true)) {
+      mario.walking = false;
+      s16 scaleX = 1 << 8;
+>>>>>>> c44f74ab7e9ade681178be1add4d67a0b889db17
       s16 scaleY = 1 << 8;
       s16 rcX = 128;
       s16 rcY = 96;
@@ -471,6 +539,7 @@ int main(int argc, char **argv) {
       stand();
     }
 
+<<<<<<< HEAD
     // sistema de animación
     delay++;
     if (delay >= goal) {
@@ -769,6 +838,317 @@ int main(int argc, char **argv) {
     }
 */
 
+=======
+    if (mario.onair == true && mario.grounded == true) {
+      mario.onair = false;
+      mario.velX = 0;
+      stand();
+    }
+
+    // sistema de animación
+    delay++;
+    if (delay >= goal) {
+      delay = 0;
+
+      frame++;
+      if (frame >= finalframe) frame = initialframe;
+    }
+    // double tap for run detection
+    tapcount--;
+    if (tapcount <= 0) {
+      tapcount = 0;
+    }
+            printf("Wait: %d\n", wait);
+            printf("Tapcount: %d\n", tapcount);
+            printf("Tap: %d\n", tap);
+            printf("jump count: %d\n", mario.jump);
+            printf("is attacking: %s\n", (mario.attacking ? "true" : "false"));
+            printf("MP3 is playing: %s\n", (mp3_is_playing() ? "true" : "false"));
+
+    if (tap > 2) {
+      tap = 2;
+    }
+    // mario jump limit
+    if (mario.jump >= 3 && mario.onair) {
+      mario.jump = 3;
+    }
+    // reset mario jump limit
+    if (mario.jump >= 3 && mario.grounded) {
+      mario.jump = 0;
+    }
+
+    if (scrollX < 180 && !draw && wait >= 3) {
+      // Si ScrollX es mayor que 120, se queda en ese valor y
+      // siempre se incrementa
+      scrollX += portmove;
+    }
+    if (scrollX >= 130 && !draw) {
+      portmove = 1;
+    }
+
+    /*
+    printf("Angle %3d(actual) %3d(degrees)\n", angle, (angle * 360) /
+   (1<<15)); printf("Scroll  X: %4d Y: %4d\n", scrollX, scrollY);
+       printf("Rot center X: %4d Y: %4d\n", rcX, rcY);
+       printf("Scale X: %4d Y: %4d\n", scaleX, scaleY);
+   printf("Frame: %d, PosX: %.2f, PosY: %.2f, VelX: %.2f, VelY: %.2f,
+   State: %d\n, dir: %.2f\n", frame, mario.posX, mario.posY, mario.velX,
+   mario.velY, state, mario.direction); printf("Mario.grounded: %s\n",
+   (mario.grounded ? "true" : "false")); printf("Mario.onair: %s\n",
+   (mario.onair ? "true" : "false")); printf("Mario.walk: %s\n",
+   (mario.walking ? "true" : "false")); printf("Mario.dodge: %s\n",
+   (mario.dodging ? "true" : "false"));
+       */
+
+    scanKeys();
+    u32 keyu = keysUp();
+
+    if ((keyu & (KEY_LEFT | KEY_RIGHT|KEY_DOWN)) && mario.grounded  &&
+        !mario.attacking) {
+      stand();
+    }
+   
+    u32 keys = keysHeld();
+
+    // moverse
+    if (keys & KEY_RIGHT) {
+      move();
+    }
+    if (keys & KEY_LEFT) {
+      move();
+    }
+    if (state == 9 && frame == 37 && !mario.grounded) {
+       mario.attacking = false;	
+      mariofall();
+    }
+    if (state == 9 && mario.grounded) {
+    mario.attacking = false;
+      stand();
+    }
+    if (state == 11 && frame >= 48 && mario.onair) {
+      mario.attacking = false;
+      mariofall();
+    }
+    if (state == 12 && frame >= 57) {
+      mario.attacking = false;
+      mariofall();
+    }
+    if (state == 11 && frame >= 48 && mario.grounded) {
+      mario.attacking = false;
+      stand();
+    }
+
+    uint16_t keysd = keysDown();
+    if (keys & KEY_RIGHT && mario.grounded == true) {
+      mario.direction = 1;
+    }
+
+    if (keys & KEY_LEFT && mario.grounded == true) {
+      mario.direction = -1;
+    }
+    if (keys & KEY_RIGHT && mario.onair == true && mario.dodging == false) {
+      setVel(220, getVelY());
+    }
+    if (keys & KEY_LEFT && mario.onair == true && mario.direction == 1 &&
+        mario.dodging == false) {
+      setVel(-180, getVelY());
+    }
+    if (keys & KEY_LEFT && mario.onair == true && mario.dodging == false) {
+      setVel(-220, getVelY());
+    }
+    if (keys & KEY_RIGHT && mario.onair == true && mario.direction == -1 &&
+        mario.dodging == false) {
+      setVel(180, getVelY());
+    }
+
+    if (keyu & KEY_LEFT && mario.onair == true && mario.direction == -1 &&
+        mario.dodging == false) {  // on key up facing direction
+
+      setVel(-130, getVelY());
+    }
+    if (keyu & KEY_RIGHT && mario.onair == true && mario.direction == 1 &&
+        mario.dodging == false) {
+      setVel(140, getVelY());
+    }
+
+    if (keyu & KEY_LEFT && mario.onair == true && mario.direction == 1 &&
+        mario.dodging == false) {  // key up opposite air direction
+
+      setVel(-100, getVelY());
+    }
+    if (keyu & KEY_RIGHT && mario.onair == true && mario.direction == -1 &&
+        mario.dodging == false) {
+      setVel(100, getVelY());
+    }
+
+    if (keysd & (KEY_Y | KEY_X)) {
+      marioJump(&mario);
+    }
+    if ((keyu & (KEY_X | KEY_Y)) && mario.velY < -480 &&
+        mario.onair) {  // shorthop
+
+      setVel(getVelX(), -200);
+    }
+    if ((keysd & KEY_L) &&
+        !(keysHeld() & (KEY_UP | KEY_DOWN | KEY_RIGHT | KEY_LEFT)) &&
+        mario.onair) {
+      // Realiza la acción si el botón L está presionado y ninguno
+      // de los botones direccionales está presionado
+      mario.direction = mario.direction;
+      marioairdodge(&mario, getVelX(), -300);
+    }
+    if ((keysd & KEY_L) && (keys & KEY_DOWN) && mario.onair) {  // airdodge
+      mario.direction = mario.direction;
+      marioairdodge(&mario, getVelX(), 300);
+    }
+    if ((keysd & KEY_L) && (keys & KEY_RIGHT) && mario.onair) {
+      marioairdodge(&mario, 340, -80);
+    }
+    if ((keysd & KEY_L) && (keys & KEY_LEFT) && mario.onair) {
+      marioairdodge(&mario, -340, -80);
+    }
+
+    // Detectar la presión inicial y cambiar la dirección
+    if ((keysd & (KEY_LEFT | KEY_RIGHT)) && mario.grounded && tap <= 2) {
+      tapcount = 30;
+      tap++;
+    }
+
+    // Mantener la dirección mientras se mantiene presionada la tecla
+    if (keysHeld() & (KEY_LEFT | KEY_RIGHT) && mario.grounded) {
+      mariorun();
+    }
+
+    // Reiniciar tap si se presiona la tecla opuesta
+    if ((keysd & KEY_LEFT) && (keysHeld() & KEY_RIGHT) && mario.grounded) {
+      tap = 0;
+      tapcount = 20;
+    }
+    if ((keysd & KEY_RIGHT) && (keysHeld() & KEY_LEFT) && mario.grounded) {
+      tap = 0;
+      tapcount = 20;
+    }
+
+    // Reiniciar tap si se deja de presionar las teclas de dirección y
+    // tap >= 2
+    if (!(keysHeld() & (KEY_LEFT | KEY_RIGHT)) && (tap >= 2) &&
+        (tapcount < 6) && (tapcount >= 0)) {
+      tap = 0;
+    }
+
+    // Reiniciar tap si tapcount está en un rango específico y tap <= 1
+    if ((tapcount <= 20) && (tapcount >= 0) && (tap <= 1)) {
+      tap = 0;
+    }
+
+    // Mantener la dirección mientras se mantiene presionada la tecla
+    if (keysHeld() & (KEY_LEFT | KEY_RIGHT) && mario.grounded) {
+      mariorun();
+    }
+    if (keys & (KEY_DOWN) && mario.grounded) {
+      mariocrouch();
+    }
+    if ((keysd & KEY_A) && (keysHeld() & KEY_LEFT) && mario.onair &&
+        mario.direction == 1 && mario.dodging == false && state != 9&&(!mario.attacking)) {
+      mariobair();
+    }  // bair
+    if ((keysd & KEY_A) && (keysHeld() & KEY_RIGHT) && mario.onair &&
+        mario.direction == -1 && mario.dodging == false && state != 9&&(!mario.attacking)) {
+      mariobair();
+    }  // bair
+    if ((keysd & KEY_B) && (keysHeld() & KEY_DOWN) && (mario.dodging == false) &&
+        (state != 11) &&(!mario.attacking)) {
+      mariodownb();
+    }
+   
+    if (keysd & KEY_SELECT && draw) {
+    	mp3_stop();
+      setBrightness(3, -31);
+      draw = false;
+      deleteTextures(ruins, ATLAS_NUM_IMAGES);
+      bi = -31;
+      scrollX = -85;
+      scrollY = 118;
+      mp3_play("/data/strike/victory/mario.mp3", 0, 0);
+       wav_free_handle(sonido);
+       sonido=0;
+		wav_free_handle(airdodgem);
+		airdodgem=0;
+		wav_free_handle(dash);
+		dash=0;
+		wav_free_handle(attack1);
+		attack1=0;
+		wav_free_handle(attackspin);
+		attackspin=0;
+		wav_free_handle(mdjump);
+		mdjump=0;
+		wav_free_handle(spinsfx);
+		spinsfx=0;
+		
+    }
+    if (wait == 2 && !draw) {
+      vramSetBankE(VRAM_E_LCD);
+      int bg3 = bgInit(3, BgType_ExRotation, BgSize_ER_256x256, 1, 1);
+      dmaCopy(winscreenTiles, bgGetGfxPtr(bg3), winscreenTilesLen);
+      dmaCopy(winscreenMap, bgGetMapPtr(bg3), winscreenMapLen);
+      dmaCopy(winscreenPal, &VRAM_E_EXT_PALETTE[bg3][0], winscreenPalLen);
+      int bg2 = bgInit(2, BgType_ExRotation, BgSize_ER_256x256, 2, 3);
+      dmaCopy(mario_winportraitTiles, bgGetGfxPtr(bg2),
+              mario_winportraitTilesLen);
+      dmaCopy(mario_winportraitMap, bgGetMapPtr(bg2), mario_winportraitMapLen);
+      dmaCopy(mario_winportraitPal, &VRAM_E_EXT_PALETTE[2][0],
+              mario_winportraitPalLen);
+      vramSetBankE(VRAM_E_BG_EXT_PALETTE);
+       
+    }
+    // si la espera llega al frame 3
+    if (wait == 3 && !draw) {
+      fadein();
+    }
+    // draw es false
+    if (!draw) {
+      wait++;
+    }
+    // limite de espera
+    if (wait >= 4) {
+      wait = 4;
+    }
+
+    
+    if ((keysd & KEY_A) && (mario.grounded)) {
+      mariojab1();
+    }
+    if ((state==13) && (frame==62) ){
+    stand();
+    mario.attacking = false;
+    
+	}
+	 if ((keysd & KEY_A) && (mario.grounded) && (frame>=61)  && (frame<64) ) {
+      mariojab2();
+    }
+     if ((state==14) && (frame==66) ){
+    stand();
+    mario.attacking = false;
+    }
+    if ((keysd & KEY_A) && (mario.grounded) && (frame>=64)  && (frame<67) ) {
+      mariojab3();
+    }
+      if ((state==15) && (frame==74) ){
+    stand();
+    mario.attacking = false;
+    }
+    
+    
+    
+    /*
+    if( keys & KEY_UP ) {
+    scrollY--; }
+    if( keys & KEY_DOWN ){
+            scrollY++;
+    }
+*/
+
+>>>>>>> c44f74ab7e9ade681178be1add4d67a0b889db17
     /*	if( keys & KEY_A ){
 
 
