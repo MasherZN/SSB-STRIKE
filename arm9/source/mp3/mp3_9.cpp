@@ -170,7 +170,7 @@ int mp3_stop() {
 		if (!mp3_is_playing()) return 1;
 
 		mp3_msg msg;
-		int ret;
+		int ret = 1;
 
 		if(mp3 == 0) {
 				return 1;
@@ -178,10 +178,13 @@ int mp3_stop() {
 
 		msg.type = MP3_MSG_STOP;
 
-		fifoSendDatamsg(FIFO_USER_01, sizeof(msg), (u8*)&msg);
-		while(!fifoCheckValue32(FIFO_USER_01));
+		if (mp3->flag != 4)
+		{
+			fifoSendDatamsg(FIFO_USER_01, sizeof(msg), (u8*)&msg);
+			while(!fifoCheckValue32(FIFO_USER_01));
 
-		ret = (int)fifoGetValue32(FIFO_USER_01);
+			ret = (int)fifoGetValue32(FIFO_USER_01);
+		}
 
 		if(mp3_file)
 		{

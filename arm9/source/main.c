@@ -388,7 +388,6 @@ int main(int argc, char **argv) {
       float dt = 0;
       dt = timeScale;
       mp3_play("/data/strike/music/bf.mp3", 1, 0);
-      int isPlaying = mp3_is_playing();
       stand();
 
       while (1) {
@@ -404,7 +403,7 @@ int main(int argc, char **argv) {
             printf("Tap: %d\n", tap);
             printf("jump count: %d\n", mario.jump);
             printf("is attacking: %s\n", (mario.attacking ? "true" : "false"));
-            printf("MP3 is playing: %s\n", (isPlaying ? "true" : "false"));
+            printf("MP3 is playing: %s\n", (mp3_is_playing() ? "true" : "false"));
 
             u32 flip = (mario.direction == 1) ? GL_FLIP_NONE : GL_FLIP_H;
 
