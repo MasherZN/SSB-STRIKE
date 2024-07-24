@@ -250,7 +250,7 @@ void mariojab1() {
     state = 13;
     initialframe = 58;
     frame = initialframe;
-    finalframe = 63;
+    finalframe = 63; 
     setVel(0, 0);
   }
 }
@@ -403,24 +403,24 @@ int main(int argc, char **argv) {
 	  1,1,1,1,1,6,7,9,4,1,-3,-4,-7,-7,-4,4,3,//jab
 	  19,18}; //crouch
 
-  s16 scaleX = 1 << 8;
-  s16 scaleY = 1 << 8;
-  s16 rcX = 128;
-  s16 rcY = 96;
-  s16 angle = 0;
-  float timeScale = 1;
-  float dt = 0;
-  dt = timeScale;
-  mp3_play("/data/strike/music/bf.mp3", 1, 0);
-  int isPlaying = mp3_is_playing();
-  int playvictory=false;
+ 	  s16 scaleX = 1 << 8;
+      s16 scaleY = 1 << 8;
+      s16 rcX = 128;
+      s16 rcY = 96;
+      s16 angle = 0;
+      float timeScale = 1;
+      float dt = 0;
+      dt = timeScale;
+      mp3_play("/data/strike/music/bf.mp3", 1, 0);
+      int isPlaying = mp3_is_playing();
+  	  int playvictory=false;
   
-  stand();
-
+  
+  
+		stand();
   while (1) {
+  	
     mp3_fill_buffer();
-
-<<<<<<< HEAD
     // Synchronize game loop to the screen refresh
     swiWaitForVBlank();
     // Set up GL2D for 2D mode
@@ -429,11 +429,9 @@ int main(int argc, char **argv) {
     printf("Wait: %d\n", wait);
     printf("Tapcount: %d\n", tapcount);
     printf("Tap: %d\n", tap);
-    printf("frame: %d\n", frame);
-    printf("state: %d\n", state);
     printf("jump count: %d\n", mario.jump);
     printf("is attacking: %s\n", (mario.attacking ? "true" : "false"));
-    printf("MP3 is playing: %s\n", (isPlaying ? "true" : "false"));
+    printf("MP3 is playing: %s\n", (mp3_is_playing() ? "true" : "false"));
 
     u32 flip = (mario.direction == 1) ? GL_FLIP_NONE : GL_FLIP_H;
 
@@ -464,18 +462,7 @@ int main(int argc, char **argv) {
 
     if ((mario.velX == 0) & (mario.grounded == true)) {
       mario.walking = false;
-=======
-      s16 scaleX = 1 << 8;
-      s16 scaleY = 1 << 8;
-      s16 rcX = 128;
-      s16 rcY = 96;
-      s16 angle = 0;
-      float timeScale = 1;
-      float dt = 0;
-      dt = timeScale;
-      mp3_play("/data/strike/music/bf.mp3", 1, 0);
->>>>>>> b30cf340e2f6bcb293e040415dbeac255586db28
-      stand();
+
     }
 
     if (mario.onair == true && mario.grounded == true) {
@@ -488,8 +475,6 @@ int main(int argc, char **argv) {
     delay++;
     if (delay >= goal) {
       delay = 0;
-
-<<<<<<< HEAD
       frame++;
       if (frame >= finalframe) frame = initialframe;
     }
@@ -498,14 +483,8 @@ int main(int argc, char **argv) {
     if (tapcount <= 0) {
       tapcount = 0;
     }
-=======
-            printf("Wait: %d\n", wait);
-            printf("Tapcount: %d\n", tapcount);
-            printf("Tap: %d\n", tap);
-            printf("jump count: %d\n", mario.jump);
-            printf("is attacking: %s\n", (mario.attacking ? "true" : "false"));
-            printf("MP3 is playing: %s\n", (mp3_is_playing() ? "true" : "false"));
->>>>>>> b30cf340e2f6bcb293e040415dbeac255586db28
+
+           
 
     if (tap > 2) {
       tap = 2;
