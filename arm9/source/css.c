@@ -62,11 +62,11 @@ void cssbgs() {
     dmaCopy(bgcssTiles, bgGetGfxPtr(bgSub2), bgcssTilesLen);
     dmaCopy(bgcssMap, bgGetMapPtr(bgSub2), bgcssMapLen);
     dmaCopy(bgcssPal, BG_PALETTE_SUB, bgcssPalLen);
-    vramSetBankE(VRAM_C_SUB_BG);
+    vramSetBankE(VRAM_E_LCD);
     
    dmaCopy(bgcssTiles, bgGetGfxPtr(bg2), bgcssTilesLen);
     dmaCopy(bgcssMap, bgGetMapPtr(bg2),bgcssMapLen);
-    dmaCopy(bgcssPal,BG_PALETTE,bgcssPalLen); 
+    dmaCopy(bgcssPal,&VRAM_E_EXT_PALETTE[bg2][0],bgcssPalLen); 
 
     // Configurar la VRAM para la paleta extendida (solo para la pantalla secundaria)
     vramSetBankE(VRAM_E_BG_EXT_PALETTE);
