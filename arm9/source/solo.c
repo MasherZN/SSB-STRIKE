@@ -3,5 +3,9 @@
 #include <stdint.h>
 
 const uint16_t SOLO_texcoords[] = {
-    0, 0, 106, 124, // solo_texture.png
+    0, 124, 106, 124, // 01.png
+    0, 0, 106, 124, // 02.png
+    106, 41, 86, 38, // 03.png
+    192, 41, 64, 15, // 04.png
+    106, 0, 110, 41, // 05.png
 };

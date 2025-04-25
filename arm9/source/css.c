@@ -6,13 +6,15 @@
 #include <fat.h>
 #include <filesystem.h>
 #include <math.h>
+#include <gl2d.h>
 #include "bgcss.h"
 #include "cssmugs.h"
 #include "cssmugs_texture.h"
 #include "hand.h"
 #include "hand_texture.h"
-#include <gl2d.h>
 #include "emptybg.h"
+#include "mp3_shared.h"
+
 extern int newRoom;
 extern int bg2;
 extern int bg3;
@@ -58,18 +60,20 @@ int handcss = glLoadSpriteSet(&hand,
 void cssbgs() {
     if (cssbg!=true){
         cssbg=true;
+        
     // Copiar fondos y paletas a la pantalla secundaria (bgSub2)
     dmaCopy(bgcssTiles, bgGetGfxPtr(bgSub2), bgcssTilesLen);
     dmaCopy(bgcssMap, bgGetMapPtr(bgSub2), bgcssMapLen);
     dmaCopy(bgcssPal, BG_PALETTE_SUB, bgcssPalLen);
-    vramSetBankE(VRAM_C_SUB_BG);
+    vramSetBankE(VRAM_E_LCD);
     
    dmaCopy(bgcssTiles, bgGetGfxPtr(bg2), bgcssTilesLen);
     dmaCopy(bgcssMap, bgGetMapPtr(bg2),bgcssMapLen);
-    dmaCopy(bgcssPal,BG_PALETTE,bgcssPalLen); 
+    dmaCopy(bgcssPal,&VRAM_E_EXT_PALETTE[bg2][0],bgcssPalLen); 
 
     // Configurar la VRAM para la paleta extendida (solo para la pantalla secundaria)
     vramSetBankE(VRAM_E_BG_EXT_PALETTE);
+    lcdSwap();
 }
 }
 

@@ -5,11 +5,11 @@
 
 #include <stdint.h>
 
-#define MHUD_BITMAP_WIDTH   256
-#define MHUD_BITMAP_HEIGHT  256
+#define MHUD_BITMAP_WIDTH   128
+#define MHUD_BITMAP_HEIGHT  128
 #define MHUD_NUM_IMAGES     1
 
-#define MHUD_mhud_texure_png 0
+#define MHUD_mhud_texture_png 0
 
 extern const uint16_t MHUD_texcoords[];
 

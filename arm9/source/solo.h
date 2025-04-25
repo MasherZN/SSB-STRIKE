@@ -5,11 +5,15 @@
 
 #include <stdint.h>
 
-#define SOLO_BITMAP_WIDTH   128
-#define SOLO_BITMAP_HEIGHT  128
-#define SOLO_NUM_IMAGES     1
+#define SOLO_BITMAP_WIDTH   256
+#define SOLO_BITMAP_HEIGHT  256
+#define SOLO_NUM_IMAGES     5
 
-#define SOLO_solo_texture_png 0
+#define SOLO_01_png 0
+#define SOLO_02_png 1
+#define SOLO_03_png 2
+#define SOLO_04_png 3
+#define SOLO_05_png 4
 
 extern const uint16_t SOLO_texcoords[];
 

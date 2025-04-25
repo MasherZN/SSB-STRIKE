@@ -3,5 +3,5 @@
 #include <stdint.h>
 
 const uint16_t MHUD_texcoords[] = {
-    0, 0, 256, 192, // mhud_texure.png
+    0, 0, 127, 17, // mhud_texture.png
 };
