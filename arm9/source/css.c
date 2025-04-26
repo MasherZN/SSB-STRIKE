@@ -1,4 +1,4 @@
-#include <nds.h>
+ #include <nds.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,8 +29,7 @@ glImage hand;
 
 
 void loadcss(){
-    if (cssload!=true){
-        cssload = true;
+   
 int smugs = glLoadSpriteSet(mugs,
         CSSMUGS_NUM_IMAGES,          // Número de imágenes
         CSSMUGS_texcoords,           // Coordenadas UV
@@ -55,17 +54,15 @@ int handcss = glLoadSpriteSet(&hand,
             hand_textureBitmap);      // Puntero a los datos de la textura
             
         
-    }
+    
 }
 void cssbgs() {
-    if (cssbg!=true){
-        cssbg=true;
-        
-    // Copiar fondos y paletas a la pantalla secundaria (bgSub2)
+    
+    vramSetBankE(VRAM_E_LCD);
     dmaCopy(bgcssTiles, bgGetGfxPtr(bgSub2), bgcssTilesLen);
     dmaCopy(bgcssMap, bgGetMapPtr(bgSub2), bgcssMapLen);
     dmaCopy(bgcssPal, BG_PALETTE_SUB, bgcssPalLen);
-    vramSetBankE(VRAM_E_LCD);
+    
     
    dmaCopy(bgcssTiles, bgGetGfxPtr(bg2), bgcssTilesLen);
     dmaCopy(bgcssMap, bgGetMapPtr(bg2),bgcssMapLen);
@@ -74,7 +71,7 @@ void cssbgs() {
     // Configurar la VRAM para la paleta extendida (solo para la pantalla secundaria)
     vramSetBankE(VRAM_E_BG_EXT_PALETTE);
     lcdSwap();
-}
+
 }
 
 void drawcss() {

@@ -171,18 +171,18 @@ extern void loadcss();
 extern float handx;
 extern float handy;
 
-int title_chars= 
-glLoadSpriteSet(titlechars,               
- TSC_NUM_IMAGES,     // Number of images
- TSC_texcoords,      // Array of UV coordinates
- GL_RGB256,            // Texture type for glTexImage2D()
- TSC_BITMAP_WIDTH,   
- TSC_BITMAP_HEIGHT,  // Full texture size Y (image size)
- // Parameters for glTexImage2D()
- TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT,
- 256,  // Length of the palette to use (256 colors)
- title_charsPal,      // Pointer to texture palette data
- title_charsBitmap);  // Pointer to texture data 
+                      int title_chars= 
+                      glLoadSpriteSet(titlechars,               
+                      TSC_NUM_IMAGES,     // Number of images
+                      TSC_texcoords,      // Array of UV coordinates
+                      GL_RGB256,            // Texture type for glTexImage2D()
+                      TSC_BITMAP_WIDTH,   
+                      TSC_BITMAP_HEIGHT,  // Full texture size Y (image size)
+                      // Parameters for glTexImage2D()
+                      TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT,
+                      256,  // Length of the palette to use (256 colors)
+                      title_charsPal,      // Pointer to texture palette data
+                      title_charsBitmap);  // Pointer to texture data 
  
    int solobutton= glLoadSpriteSet(solo,                // Pointer to glImage array
                       SOLO_NUM_IMAGES,     // Number of images
@@ -265,7 +265,7 @@ glLoadSpriteSet(titlechars,
     // Set up GL2D for 2D mode
     glBegin2D();
 
-    printf("Is playing %d \n", isPlaying);
+    
 
     if (currentRoom!=newRoom)
     {
@@ -284,8 +284,20 @@ glLoadSpriteSet(titlechars,
             mp3_stop();
             isPlaying=0;
           }
+          int title_chars= 
+          glLoadSpriteSet(titlechars,               
+          TSC_NUM_IMAGES,     // Number of images
+          TSC_texcoords,      // Array of UV coordinates
+          GL_RGB256,            // Texture type for glTexImage2D()
+          TSC_BITMAP_WIDTH,   
+          TSC_BITMAP_HEIGHT,  // Full texture size Y (image size)
+          // Parameters for glTexImage2D()
+          TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT,
+          256,  // Length of the palette to use (256 colors)
+          title_charsPal,      // Pointer to texture palette data
+          title_charsBitmap);  // Pointer to texture data
           startFadeOut();
-         
+          vramSetBankE(VRAM_E_LCD);
           // Pantalla de título
           dmaCopy(bgtitlebottomTiles, bgGetGfxPtr(bg2), bgtitlebottomTilesLen);
           dmaCopy(bgtitlebottomMap, bgGetMapPtr(bg2), bgtitlebottomMapLen);  
@@ -298,54 +310,85 @@ glLoadSpriteSet(titlechars,
           start = wav_load_handle("/data/strike/sfx/menu/start.wav");
           
           swiWaitForVBlank();
-          printf("Estás en el case 1\n");
+          printf("room  1\n");
           break;
   
-      case 2:
+          case 2:
           // Sonidos de navegación del menú
+          int solobutton= glLoadSpriteSet(solo,                // Pointer to glImage array
+            SOLO_NUM_IMAGES,     // Number of images
+            SOLO_texcoords,      // Array of UV coordinates
+            GL_RGB256,            // Texture type for glTexImage2D()
+            SOLO_BITMAP_WIDTH,   // Full texture size X (image size)
+            SOLO_BITMAP_HEIGHT,  // Full texture size Y (image size)
+            // Parameters for glTexImage2D()
+            TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT,
+            256,  // Length of the palette to use (256 colors)
+            solo_texturePal,      // Pointer to texture palette data
+            solo_textureBitmap);  // Pointer to texture data 
+
+int mhudb= glLoadSpriteSet(&mhud,                // Pointer to glImage array
+            MHUD_NUM_IMAGES,     // Number of images
+            MHUD_texcoords,      // Array of UV coordinates
+            GL_RGB256,            // Texture type for glTexImage2D()
+            MHUD_BITMAP_WIDTH,   // Full texture size X (image size)
+            MHUD_BITMAP_HEIGHT,  // Full texture size Y (image size)
+            // Parameters for glTexImage2D()
+            TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT,
+            256,  // Length of the palette to use (256 colors)
+            mhud_texturePal,      // Pointer to texture palette data
+            mhud_textureBitmap);  // Pointer to texture data 
           startFadeOut();
-          if(!menusounds){
-          cursor = wav_load_handle("/data/strike/sfx/menu/sfx_cursor.wav");
-          select = wav_load_handle("/data/strike/sfx/menu/select.wav");
-          menusounds=true;
-        }
+          
+          if (!menusounds) {
+              cursor = wav_load_handle("/data/strike/sfx/menu/sfx_cursor.wav");
+              select = wav_load_handle("/data/strike/sfx/menu/select.wav");
+              menusounds = true;
+          }
+    
+          lcdSwap();
+          vramSetBankE(VRAM_E_LCD);
+          
+          
           // Fondo principal superior
           dmaCopy(menubgTiles, bgGetGfxPtr(bg3), menubgTilesLen);
           dmaCopy(menubgMap, bgGetMapPtr(bg3), menubgMapLen);
           dmaCopy(menubgPal, &VRAM_E_EXT_PALETTE[bg3][0], menubgPalLen);
-  
+      
           // Fondo adicional superior
           dmaCopy(menubg2Tiles, bgGetGfxPtr(bg2), menubg2TilesLen);
           dmaCopy(menubg2Map, bgGetMapPtr(bg2), menubg2MapLen);
           dmaCopy(menubg2Pal, &VRAM_E_EXT_PALETTE[bg2][0], menubg2PalLen);
-  
-          // Fondo inferior
+      
+          // Fondo inferior (sin paleta extendida)
           dmaCopy(menubgTiles, bgGetGfxPtr(bgSub2), menubgTilesLen);
           dmaCopy(menubgMap, bgGetMapPtr(bgSub2), menubgMapLen);
           dmaCopy(menubgPal, BG_PALETTE_SUB, menubgPalLen);
-  
           vramSetBankE(VRAM_E_BG_EXT_PALETTE);
-          lcdSwap();
+          // Actualizar fondos y pantallas
           bgUpdate();
-  
-         if (isPlaying==0){
-          mp3_play("/data/strike/music/menu.mp3", 1, 0);
-          isPlaying=1;
-         }
-         
-         
-  
+          
+      
+          // Reproducir música del menú si no está sonando
+          if (isPlaying == 0) {
+              mp3_play("/data/strike/music/menu.mp3", 1, 0);
+              isPlaying = 1;
+          }
+      
           swiWaitForVBlank();
-          printf("Estás en el case 2\n");
+          printf("room 2\n");
           break;
-  
+      
       case 3:
-          // Preparado para futuras pantallas
+      startFadeIn();
+      cssbgs();
+      loadcss();
+      
           break;
   
       default:
           // Por si currentRoom tiene un valor inesperado
-          printf("currentRoom desconocido: %d\n", currentRoom);
+          printf("unknown room: %d\n", currentRoom);
           break;
   }
 }
@@ -359,12 +402,14 @@ glLoadSpriteSet(titlechars,
   }
   
   if (isFadingIn) {
-      if (fadeValue < 0) {
-          setBrightness(3, fadeValue);
-          fadeValue++;
-      } else {
-          isFadingIn = false;
-      }
+    if (fadeValue < 0) {
+          fadeValue+=3;
+        if (fadeValue > 0) fadeValue = 0; // Evita pasarte de 0
+        setBrightness(3, fadeValue);
+    } else {
+        isFadingIn = false;
+    }
+
   }
   
   if (isFadingToWhite) {
@@ -451,9 +496,9 @@ if(samx>25){
    if (currentRoom == 1 && isWaitingToEnterRoom2) {
     waitToEnterRoom2Timer++;
 
-    if (waitToEnterRoom2Timer >= 10) {  // 60 frames = ~1 segundo a 60FPS
+    if (waitToEnterRoom2Timer >= 8) {  
         newRoom = 2;
-        isWaitingToEnterRoom2 = false;  // para que no vuelva a entrar
+        isWaitingToEnterRoom2 = false;  
     }
 }
  
@@ -482,12 +527,12 @@ if(samx>25){
       
       
     }
-    if(keysd & (KEY_A)){
+    if(keysd & (KEY_A) ){
       newRoom=newRoom+1;
       
       
     }
-    if(keysd & (KEY_B)){
+    if(keysd & (KEY_B) && newRoom>1){
       newRoom=newRoom-1;
       
       
@@ -546,21 +591,22 @@ if(samx>25){
         selectedButton =5;
         
       }
+      if(currentRoom==1){
+ 
+        glDeleteTextures(1, &solobutton);
+      glDeleteTextures(1, &mhudb);
+    }
       if(currentRoom==2){
  
         glDeleteTextures(1, &title_chars);
     }
       if(currentRoom==3){
-
-        
       glDeleteTextures(1, &solobutton);
       glDeleteTextures(1, &mhudb);
-      
-      
-      
-      cssbgs();
-      loadcss();
       drawcss();
+      
+      
+      
       
       }
     
