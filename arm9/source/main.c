@@ -1,24 +1,37 @@
 #include <fat.h>
+
 #include <filesystem.h>
+
 #include <gl2d.h>
+
 #include <math.h>
+
 #include <nds.h>
+
 #include <stdio.h>
+
 #include <stdlib.h>
+
 #include <string.h>
+
 #include <unistd.h>
 
 #include "atlas.h"
+
 #include "atlas_texture.h"
+
 #include "bfbg.h"
+
 #include "bg1_.h"
+
 #include "bg2_.h"
+
 #include "btf.h"
-#include "ds.h"
-#include "dsbg.h"
-#include "fd.h"
+
 #include "mario_winportrait.h"
+
 #include "mp3_shared.h"
+
 #include "winscreen.h"
 
 const uint32_t screen_width = 256;
@@ -28,31 +41,40 @@ int delay = 0;
 int frame = 0;
 int finalframe = 8;
 int initialframe = 0;
-int state = 1;
+int state = 0;
 int goal = 5;
 int x = 120;
-int y = 127;
-int ground_level = 128;
+int y = 140;
+int ground_level = 140;
 int tapcount = 0;
 int tap = 0;
 int bi = 0;
 int pi = 0;
 int wait = 0;
 int portmove = 20;
+float OGSCALE = 4096;
+float projX=1;
+float projY=1;
+float scaleX = 1<<8;
+float scaleY = 1<<8;
+float zoom = 1.0f;
+
 bool draw = true;
 
-s16 scrollX = 256;
-s16 scrollY = 270;
-wav_handle *sonido;
-wav_handle *airdodgem;
-wav_handle *dash;
-wav_handle *attack1;
-wav_handle *attackspin;
-wav_handle *mdjump;
-wav_handle *spinsfx;
+float scrollX = 256;
+float scrollY = 261;
+
+wav_handle * sonido;
+wav_handle * airdodgem;
+wav_handle * dash;
+wav_handle * attack1;
+wav_handle * attackspin;
+wav_handle * mdjump;
+wav_handle * spinsfx;
 
 typedef struct {
-  const char *name;
+  const char * name;
+  int percentage;
   float air_acceleration;
   float air_speed;
   float fall_speed;
@@ -81,44 +103,55 @@ typedef struct {
   int dodging;
   int run;
   int attacking;
-} Character;
+}
+Character;
 
 Character mario = {
-    .name = "Mario",
-    .air_acceleration = 0.0f,
-    .air_speed = 1.20f,
-    .fall_speed = 1.5f,
-    .gravity = 0.87f,
-    .jump_height = 35.33f,
-    .jump_duration = 2.0f,
-    .weight = 98.0f,
-    .landing = 0.0f,
-    .walk_speed = 2.1f,
-    .dash_speed = 0.0f,
-    .run_speed = 0.0f,
-    .spot_dodge = 0.0f,
-    .roll = 0.0f,
-    .air_dodge = 0.0f,
-    .grab_range = 0.0f,
-    .reflector = 0.0f,
-    .direction = 1,
-    .velY = 0,
-    .velX = 0,
-    .posY = 127,
-    .posX = 120,
-    .grounded = true,
-    .jump = 0,
-    .onair = true,
-    .walking = false,
-    .dodging = false,
-    .run = false,
-    .attacking = false,
+  .name = "Mario",
+  .percentage = 0,
+  .air_acceleration = 0.0f,
+  .air_speed = 1.20f,
+  .fall_speed = 1.5f,
+  .gravity = 0.87f,
+  .jump_height = 35.33f,
+  .jump_duration = 2.0f,
+  .weight = 98.0f,
+  .landing = 0.0f,
+  .walk_speed = 2.1f,
+  .dash_speed = 0.0f,
+  .run_speed = 0.0f,
+  .spot_dodge = 0.0f,
+  .roll = 0.0f,
+  .air_dodge = 0.0f,
+  .grab_range = 0.0f,
+  .reflector = 0.0f,
+  .direction = 1,
+  .velY = 0,
+  .velX = 0,
+  .posY = 0,
+  .posX = 0,
+  .grounded = true,
+  .jump = 0,
+  .onair = true,
+  .walking = false,
+  .dodging = false,
+  .run = false,
+  .attacking = false,
 };
 
-float getPosX() { return mario.posX; }
-float getPosY() { return mario.posY; }
-float getVelX() { return mario.velX; }
-float getVelY() { return mario.velY; }
+float getPosX() {
+  return mario.posX;
+}
+float getPosY() {
+  return mario.posY;
+}
+float getVelX() {
+  return mario.velX;
+}
+float getVelY() {
+  return mario.velY;
+}
+
 void setPos(float x, float y) {
   mario.posX = x;
   mario.posY = y;
@@ -128,56 +161,57 @@ void setVel(float x, float y) {
   mario.velY = y;
 }
 
-void stand() {  // funciones de acciones de mario
+void stand() { // funciones de acciones de mario
 
   if (state != 1 && mario.grounded && !mario.attacking) {
     mario.attacking = false;
     mario.dodging = false;
     mario.grounded = true;
+    mario.velX = 0;
     state = 1;
-    goal = 5;
+    goal = 6;
     initialframe = 0;
     frame = initialframe;
-    finalframe = 8;
-    mario.velX = 0;
+    finalframe = 6;
+
   }
 }
-void mariocrouch() {  // funciones de acciones de mario
+void mariocrouch() { // funciones de acciones de mario
 
   if (state != 17 && mario.grounded && !mario.attacking) {
     mario.attacking = false;
     mario.dodging = false;
     mario.grounded = true;
+    mario.velX = 0;
     state = 17;
-    goal =3;
+    goal = 3;
     initialframe = 76;
     frame = initialframe;
     finalframe = 76;
-    mario.velX = 0;
+
   }
 }
-void marioJump(Character *player) {
-  if (mario.jump >= 0 && mario.jump <= 2 && !mario.attacking &&
-      !mario.dodging) {
+void marioJump(Character * player) {
+  if (mario.jump <= 0 && mario.jump <= 1 && !mario.attacking &&
+    !mario.dodging) {
     mario.jump++;
     setVel(getVelX(), -550);
     wav_play(sonido);
     state = 7;
-    player->onair = true;
-    player->grounded = false;
-    player->walking = false;
+    player -> onair = true;
+    player -> grounded = false;
+    player -> walking = false;
     initialframe = 16;
     finalframe = 16;
     frame = initialframe;
-  }
-  if (mario.jump == 2 && !mario.attacking) {
-    mario.jump++;  // double jump
-    goal = 3;
+  } else if (mario.jump == 1 && !mario.attacking) {
+    mario.jump++; // double jump
+    setVel(getVelX(), -550);
     wav_play(mdjump);
+    goal = 3;
     state = 12;
-    player->onair = true;
-    player->grounded = false;
-    player->walking = false;
+    player -> onair = true;
+    player -> grounded = false;
     initialframe = 48;
     finalframe = 58;
     frame = initialframe;
@@ -195,17 +229,15 @@ void mariofall() {
 
 void move() {
   if (state != 2 && mario.grounded && tap < 2 && !mario.attacking) {
-    state = 2;
     mario.walking = true;
+    state = 2; //state 2 means character's walking
     initialframe = 8;
     frame = initialframe;
     finalframe = 16;
-  }
-
-  if (mario.walking && mario.grounded && !mario.attacking) {
-    if (mario.direction == 1) {
+  } else if (mario.grounded && !mario.attacking && tap < 2) {
+    if (mario.direction == 1) { //if mario is facing right , add 200 units of velocity
       setVel(200, getVelY());
-    } else if (mario.direction == -1) {
+    } else if (mario.direction == -1) { //if mario is facing right , do -200 units of velocity
       setVel(-200, getVelY());
     }
   }
@@ -230,7 +262,7 @@ void mariorun() {
   }
 }
 
-void marioairdodge(Character *player, float dodgex, float dodgey) {
+void marioairdodge(Character * player, float dodgex, float dodgey) {
   if (mario.onair && !mario.dodging && !mario.attacking) {
     wav_play(airdodgem);
     mario.attacking = false;
@@ -238,7 +270,7 @@ void marioairdodge(Character *player, float dodgex, float dodgey) {
     initialframe = 17;
     finalframe = 17;
     frame = initialframe;
-    setVel(dodgex, dodgey);  // Velocidad inicial de salto hacia arriba
+    setVel(dodgex, dodgey); // Velocidad inicial de salto hacia arriba
     state = 8;
   }
 }
@@ -250,27 +282,27 @@ void mariojab1() {
     state = 13;
     initialframe = 58;
     frame = initialframe;
-    finalframe = 63; 
+    finalframe = 63;
     setVel(0, 0);
   }
 }
 void mariojab2() {
-	goal = 3;
+  goal = 3;
   mario.attacking = true;
   state = 14;
   initialframe = 62;
   frame = initialframe;
   finalframe = 67;
-   setVel(0, 0);
+  setVel(0, 0);
 }
 void mariojab3() {
-	goal = 3;
+  goal = 3;
   mario.attacking = true;
   state = 15;
   initialframe = 66;
   frame = initialframe;
   finalframe = 76;
-   setVel(0, 0);
+  setVel(0, 0);
 }
 void mariostilt() {
   state = 16;
@@ -280,15 +312,15 @@ void mariostilt() {
 }
 void mariobair() {
   if ((state != 9) && (mario.onair) && (!mario.attacking))
-  mario.attacking = true;
+    mario.attacking = true;
   wav_play(attack1);
   goal = 3;
   state = 9;
   initialframe = 26;
   frame = initialframe;
   finalframe = 38;
-  if(state==9 && mario.grounded){
-  	stand();
+  if (state == 9 && mario.grounded) {
+    stand();
   }
 }
 void mariodownb() {
@@ -326,10 +358,12 @@ void deleteTextures(glImage *ruins, int num_images) {
   }
 }
 
-int main(int argc, char **argv) {
+
+int main(int argc, char ** argv) {
   mp3_init();
   fatInitDefault();
   consoleDemoInit();
+  
   sonido = wav_load_handle("/data/strike/sfx/mario/m_jump1.wav");
   airdodgem = wav_load_handle("/data/strike/sfx/mario/m_airdodge.wav");
   dash = wav_load_handle("/data/strike/sfx/mario/m_dash.wav");
@@ -339,107 +373,147 @@ int main(int argc, char **argv) {
   mdjump = wav_load_handle("/data/strike/sfx/mario/m_djump.wav");
   // Initialize OpenGL to some sensible defaults
   glScreen2D();
-
+  
   videoSetMode(MODE_5_3D);
-
+  videoSetModeSub(MODE_5_2D);
   // Setup some memory to be used for textures and for texture palettes
 
   vramSetBankA(VRAM_A_MAIN_BG);
   vramSetBankB(VRAM_B_TEXTURE);
   vramSetBankG(VRAM_G_TEX_PALETTE);
   vramSetBankE(VRAM_E_LCD);
+  vramSetBankC(VRAM_C_SUB_BG);
   bgExtPaletteEnable();
 
   int bg2 = bgInit(2, BgType_ExRotation, BgSize_ER_512x512, 2, 3);
   int bg3 = bgInit(3, BgType_ExRotation, BgSize_ER_256x256, 1, 1);
+  int bgSub2= bgInitSub(2, BgType_Rotation, BgSize_R_256x256, 0, 1);
 
   dmaCopy(bfbgTiles, bgGetGfxPtr(bg3), bfbgTilesLen);
   dmaCopy(bfbgMap, bgGetMapPtr(bg3), bfbgMapLen);
-  dmaCopy(bfbgPal, &VRAM_E_EXT_PALETTE[bg3][0], bfbgPalLen);
+  dmaCopy(bfbgPal, & VRAM_E_EXT_PALETTE[bg3][0], bfbgPalLen);
 
   dmaCopy(btfTiles, bgGetGfxPtr(bg2), btfTilesLen);
   dmaCopy(btfMap, bgGetMapPtr(bg2), btfMapLen);
-  dmaCopy(btfPal, &VRAM_E_EXT_PALETTE[2][0], btfPalLen);
+  dmaCopy(btfPal, & VRAM_E_EXT_PALETTE[2][0], btfPalLen);
+
+  dmaCopy(bfbgTiles, bgGetGfxPtr(bgSub2), bfbgTilesLen);
+  dmaCopy(bfbgMap, bgGetMapPtr(bgSub2), bfbgMapLen);
+  dmaCopy(bfbgPal, BG_PALETTE_SUB, bfbgPalLen);
+  
   vramSetBankE(VRAM_E_BG_EXT_PALETTE);
-  glClearColor(0, 0, 0, 0);
+ 
 
   int ruins_texture_id =
-      glLoadSpriteSet(ruins,                // Pointer to glImage array
-                      ATLAS_NUM_IMAGES,     // Number of images
-                      ATLAS_texcoords,      // Array of UV coordinates
-                      GL_RGB256,            // Texture type for glTexImage2D()
-                      ATLAS_BITMAP_WIDTH,   // Full texture size X (image size)
-                      ATLAS_BITMAP_HEIGHT,  // Full texture size Y (image size)
-                      // Parameters for glTexImage2D()
-                      TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT,
-                      256,  // Length of the palette to use (256 colors)
-                      atlas_texturePal,      // Pointer to texture palette data
-                      atlas_textureBitmap);  // Pointer to texture data
+    glLoadSpriteSet(ruins, // Pointer to glImage array
+      ATLAS_NUM_IMAGES, // Number of images
+      ATLAS_texcoords, // Array of UV coordinates
+      GL_RGB256, // Texture type for glTexImage2D()
+      ATLAS_BITMAP_WIDTH, // Full texture size X (image size)
+      ATLAS_BITMAP_HEIGHT, // Full texture size Y (image size)
+      // Parameters for glTexImage2D()
+      TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT,
+      256, // Length of the palette to use (256 colors)
+      atlas_texturePal, // Pointer to texture palette data
+      atlas_textureBitmap); // Pointer to texture data
 
   if (ruins_texture_id < 0)
     printf("Failed to load texture: %d\n", ruins_texture_id);
 
   float sprite_offsets_x[] = {
-      -5,  -7,  -8,  -8,  -8,  -8,  -7,  -5,  // stand       --izq ++ der
+     -3,  -3,  -3,  -3,  -3,  -3,  0, 0,  // stand       --izq ++ der
       -6,  -9,  -11, -9,  -3,  -9,  -11, -7,  // walk
-      -6,                                     // jump
+       5,                                     // jump
       -12,                                    // airdodge
       -8,  -8,  -8,  -8,  -8,  -8,  -8,  -8,  // run
       -14, -14, -14, -29, -30, -30, -24, -24, -22, -19, -12, -17,  // bair
       -21, -24, -14, -31, -27, -31, -31, -30, -30, -29, // downb
 	  -12, -12, -12, -12, -12, -12, -12, -12, -12,-12,  //djump
       -4, -4, -4, -4, -5, -2, -1,-2, -4, -7,4, 8, 5, 1, -4, -2,-2, //jab
-      0,-5}; //crouch
+      0,0}; //crouch
+
+       float sprite_offsets_nx[] = {
+     -10,  -3,  -3,  -3,  -3,  -3,  0, 0,  // stand       --izq ++ der
+      -6,  -9,  -11, -9,  -3,  -9,  -11, -7,  // walk
+       5,                                     // jump
+      -12,                                    // airdodge
+      -8,  -8,  -8,  -8,  -8,  -8,  -8,  -8,  // run
+      -14, -14, -14, -29, -30, -30, -24, -24, -22, -19, -12, -17,  // bair
+      -21, -24, -14, -31, -27, -31, -31, -30, -30, -29, // downb
+	  -12, -12, -12, -12, -12, -12, -12, -12, -12,-12,  //djump
+      -4, -4, -4, -4, -5, -2, -1,-2, -4, -7,4, 8, 5, 1, -4, -2,-2, //jab
+      0,0}; //crouch
       
   float sprite_offsets_y[] = {
-      1,  0,   0,   1,   2,   0,   0,   2, //  ++abajo --arriba
-      1,  1,   0,   2,   1,   1,   1,   2, // walk
-     -1,                                    // jump
+    -3,  -4, -4,  -3,   -1,   -1,   0,   0, //  ++abajo --arriba
+    1,  1,   0,   2,   1,   1,   1,   2, // walk
+     -4,                                    // jump
 	  0,                                   // airdodge
 	  4,   4,   4,   4,   4,   4,   4,   4,   // run
 	  0, 0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, // bair
       4,  -11, -11, -11, -26, -27, -27, -27, -26, -16, // downb
 	  0,  0,   0,   0,   0,   0,   0,   0,   0,0,  //djump
 	  1,1,1,1,1,6,7,9,4,1,-3,-4,-7,-7,-4,4,3,//jab
-	  19,18}; //crouch
+	  19,15}; //crouch
+  float charscalefactor=1;
+  float camscalefactor=1;
+  s16 rcX = 128;
+  s16 rcY = 96;
+  s16 angle = 0;
+  float timeScale = 1;
+  float dt = 0;
+  dt = timeScale; 
+  //mp3_play("/data/strike/music/bf.mp3", 1, 0);
+  glClearColor(0, 0, 0, 0);
 
- 	  s16 scaleX = 1 << 8;
-      s16 scaleY = 1 << 8;
-      s16 rcX = 128;
-      s16 rcY = 96;
-      s16 angle = 0;
-      float timeScale = 1;
-      float dt = 0;
-      dt = timeScale;
-      mp3_play("/data/strike/music/bf.mp3", 1, 0);
-      int isPlaying = mp3_is_playing();
-  	  int playvictory=false;
-  
-  
-  
-		stand();
   while (1) {
-  	
+   
     mp3_fill_buffer();
     // Synchronize game loop to the screen refresh
     swiWaitForVBlank();
     // Set up GL2D for 2D mode
     glBegin2D();
+glTranslatef32(128, 96, 0);
+glScalef(zoom, zoom, 1.0f);
+glTranslatef32(-128, -96, 0);
 
-    printf("Wait: %d\n", wait);
+
+    
+    // Limpiar la pantalla antes de imprimir el estado.
+    printf("\033[2J\033[H");
+  u32 flip = (mario.direction == 1) ? GL_FLIP_NONE : GL_FLIP_H;
+  float adjustedPosX = (mario.posX + sprite_offsets_x[frame] );
+  float adjustedPosY = mario.posY + sprite_offsets_y[frame] ;  // El offset Y se aplica sin cambio
+  float offsetX = (adjustedPosX - 128) * projX + 128;
+float offsetY = (adjustedPosY - 96) * projY + 96;
+    // Imprimir las lÃ­neas de estado.
+    printf("projX: %f\n", projX);
+    printf("projY: %f\n", projY);
+    printf("scaleX: %d\n", scaleX);
+    printf("scaleY: %d\n", scaleY);
+    printf("Damage Percentage: %d\n",mario.percentage);
+    printf("PosX: %f\n",mario.posX);
+    printf("PosY: %f\n",mario.posY);
     printf("Tapcount: %d\n", tapcount);
     printf("Tap: %d\n", tap);
-    printf("jump count: %d\n", mario.jump);
-    printf("is attacking: %s\n", (mario.attacking ? "true" : "false"));
-    printf("MP3 is playing: %s\n", (mp3_is_playing() ? "true" : "false"));
+    printf("Jump count: %d\n", mario.jump);
+    printf("Is attacking: %s\n", (mario.attacking ? "true" : "false"));
+    printf("Onair: %s\n", (mario.onair ? "true" : "false"));
+    printf("Grounded: %s\n", (mario.grounded ? "true" : "false"));
+    fflush(stdout);
 
-    u32 flip = (mario.direction == 1) ? GL_FLIP_NONE : GL_FLIP_H;
-
+glBoxFilled( 128,140, 128,141,0xF00F);
     if (draw) {
-      glSprite(mario.posX + sprite_offsets_x[frame],
-               mario.posY + sprite_offsets_y[frame], flip, &ruins[frame]);
+      glSprite(adjustedPosX,adjustedPosY,flip, &ruins[frame]);
     }
-
+       // sistema de animaciï¿½n
+    delay++;
+    if (delay >= goal) {
+      delay = 0;
+      frame++;
+      if (frame >= finalframe) frame = initialframe;
+    } 
+     
     dt *= timeScale;
     mario.posX += mario.velX / 100 * dt;
     mario.posY += mario.velY / 100 * dt;
@@ -453,7 +527,7 @@ int main(int argc, char **argv) {
       mario.grounded = false;
     }
 
-    // mario está en el suelo
+    // mario estï¿½ en el suelo
     if (mario.grounded) {
       mario.posY = ground_level;
       mario.velY = 0;
@@ -462,7 +536,6 @@ int main(int argc, char **argv) {
 
     if ((mario.velX == 0) & (mario.grounded == true)) {
       mario.walking = false;
-
     }
 
     if (mario.onair == true && mario.grounded == true) {
@@ -470,21 +543,14 @@ int main(int argc, char **argv) {
       mario.velX = 0;
       stand();
     }
-
-    // sistema de animación
-    delay++;
-    if (delay >= goal) {
-      delay = 0;
-      frame++;
-      if (frame >= finalframe) frame = initialframe;
-    }
     // double tap for run detection
-    tapcount--;
+    if (state != 8) {
+      tapcount--;
+    }
+
     if (tapcount <= 0) {
       tapcount = 0;
     }
-
-           
 
     if (tap > 2) {
       tap = 2;
@@ -498,14 +564,14 @@ int main(int argc, char **argv) {
       mario.jump = 0;
     }
 
-    if (scrollX < 180 && !draw && wait >= 3) {
+    /*if (scrollX < 180 && !draw && wait >= 3) {
       // Si ScrollX es mayor que 120, se queda en ese valor y
       // siempre se incrementa
       scrollX += portmove;
     }
     if (scrollX >= 130 && !draw) {
       portmove = 1;
-    }
+    }*/
 
     /*
     printf("Angle %3d(actual) %3d(degrees)\n", angle, (angle * 360) /
@@ -521,15 +587,16 @@ int main(int argc, char **argv) {
    (mario.dodging ? "true" : "false"));
        */
 
-    scanKeys();
+   
     u32 keyu = keysUp();
-
-    if ((keyu & (KEY_LEFT | KEY_RIGHT|KEY_DOWN)) && mario.grounded  &&
-        !mario.attacking) {
+    u32 keys = keysHeld();
+    u32 keysd = keysDown();
+     scanKeys();
+    //mario is not performing any action on ground
+    if ((keyu & (KEY_LEFT | KEY_RIGHT | KEY_DOWN)) && mario.grounded &&
+      !mario.attacking) {
       stand();
     }
-   
-    u32 keys = keysHeld();
 
     // moverse
     if (keys & KEY_RIGHT) {
@@ -539,11 +606,11 @@ int main(int argc, char **argv) {
       move();
     }
     if (state == 9 && frame == 37 && !mario.grounded) {
-       mario.attacking = false;	
+      mario.attacking = false;
       mariofall();
     }
     if (state == 9 && mario.grounded) {
-    mario.attacking = false;
+      mario.attacking = false;
       stand();
     }
     if (state == 11 && frame >= 48 && mario.onair) {
@@ -559,7 +626,6 @@ int main(int argc, char **argv) {
       stand();
     }
 
-    uint16_t keysd = keysDown();
     if (keys & KEY_RIGHT && mario.grounded == true) {
       mario.direction = 1;
     }
@@ -571,71 +637,71 @@ int main(int argc, char **argv) {
       setVel(220, getVelY());
     }
     if (keys & KEY_LEFT && mario.onair == true && mario.direction == 1 &&
-        mario.dodging == false) {
+      mario.dodging == false) {
       setVel(-180, getVelY());
     }
     if (keys & KEY_LEFT && mario.onair == true && mario.dodging == false) {
       setVel(-220, getVelY());
     }
     if (keys & KEY_RIGHT && mario.onair == true && mario.direction == -1 &&
-        mario.dodging == false) {
+      mario.dodging == false) {
       setVel(180, getVelY());
     }
 
     if (keyu & KEY_LEFT && mario.onair == true && mario.direction == -1 &&
-        mario.dodging == false) {  // on key up facing direction
+      mario.dodging == false) { // on key up facing direction
 
       setVel(-130, getVelY());
     }
     if (keyu & KEY_RIGHT && mario.onair == true && mario.direction == 1 &&
-        mario.dodging == false) {
+      mario.dodging == false) {
       setVel(140, getVelY());
     }
 
     if (keyu & KEY_LEFT && mario.onair == true && mario.direction == 1 &&
-        mario.dodging == false) {  // key up opposite air direction
+      mario.dodging == false) { // key up opposite air direction
 
       setVel(-100, getVelY());
     }
     if (keyu & KEY_RIGHT && mario.onair == true && mario.direction == -1 &&
-        mario.dodging == false) {
+      mario.dodging == false) {
       setVel(100, getVelY());
     }
 
     if (keysd & (KEY_Y | KEY_X)) {
-      marioJump(&mario);
+      marioJump( & mario);
     }
     if ((keyu & (KEY_X | KEY_Y)) && mario.velY < -480 &&
-        mario.onair) {  // shorthop
+      mario.onair) { // shorthop
 
       setVel(getVelX(), -200);
     }
     if ((keysd & KEY_L) &&
-        !(keysHeld() & (KEY_UP | KEY_DOWN | KEY_RIGHT | KEY_LEFT)) &&
-        mario.onair) {
-      // Realiza la acción si el botón L está presionado y ninguno
-      // de los botones direccionales está presionado
+      !(keysHeld() & (KEY_UP | KEY_DOWN | KEY_RIGHT | KEY_LEFT)) &&
+      mario.onair) {
+      // Realiza la acciï¿½n si el botï¿½n L estï¿½ presionado y ninguno
+      // de los botones direccionales estï¿½ presionado
       mario.direction = mario.direction;
-      marioairdodge(&mario, getVelX(), -300);
+      marioairdodge( & mario, getVelX(), -300);
     }
-    if ((keysd & KEY_L) && (keys & KEY_DOWN) && mario.onair) {  // airdodge
+    if ((keysd & KEY_L) && (keys & KEY_DOWN) && mario.onair) { // airdodge
       mario.direction = mario.direction;
-      marioairdodge(&mario, getVelX(), 300);
+      marioairdodge( & mario, getVelX(), 300);
     }
     if ((keysd & KEY_L) && (keys & KEY_RIGHT) && mario.onair) {
-      marioairdodge(&mario, 340, -80);
+      marioairdodge( & mario, 340, -80);
     }
     if ((keysd & KEY_L) && (keys & KEY_LEFT) && mario.onair) {
-      marioairdodge(&mario, -340, -80);
+      marioairdodge( & mario, -340, -80);
     }
 
-    // Detectar la presión inicial y cambiar la dirección
+    // Detectar la presiï¿½n inicial y cambiar la direcciï¿½n
     if ((keysd & (KEY_LEFT | KEY_RIGHT)) && mario.grounded && tap <= 2) {
       tapcount = 30;
       tap++;
     }
 
-    // Mantener la dirección mientras se mantiene presionada la tecla
+    // Mantener la direcciï¿½n mientras se mantiene presionada la tecla
     if (keysHeld() & (KEY_LEFT | KEY_RIGHT) && mario.grounded) {
       mariorun();
     }
@@ -650,19 +716,19 @@ int main(int argc, char **argv) {
       tapcount = 20;
     }
 
-    // Reiniciar tap si se deja de presionar las teclas de dirección y
+    // Reiniciar tap si se deja de presionar las teclas de direcciï¿½n y
     // tap >= 2
     if (!(keysHeld() & (KEY_LEFT | KEY_RIGHT)) && (tap >= 2) &&
-        (tapcount < 6) && (tapcount >= 0)) {
+      (tapcount < 6) && (tapcount >= 0)) {
       tap = 0;
     }
 
-    // Reiniciar tap si tapcount está en un rango específico y tap <= 1
+    // Reiniciar tap si tapcount estï¿½ en un rango especï¿½fico y tap <= 1
     if ((tapcount <= 20) && (tapcount >= 0) && (tap <= 1)) {
       tap = 0;
     }
 
-    // Mantener la dirección mientras se mantiene presionada la tecla
+    // Mantener la direcciï¿½n mientras se mantiene presionada la tecla
     if (keysHeld() & (KEY_LEFT | KEY_RIGHT) && mario.grounded) {
       mariorun();
     }
@@ -670,123 +736,67 @@ int main(int argc, char **argv) {
       mariocrouch();
     }
     if ((keysd & KEY_A) && (keysHeld() & KEY_LEFT) && mario.onair &&
-        mario.direction == 1 && mario.dodging == false && state != 9&&(!mario.attacking)) {
+      mario.direction == 1 && mario.dodging == false && state != 9 && (!mario.attacking)) {
       mariobair();
-    }  // bair
+    } // bair
     if ((keysd & KEY_A) && (keysHeld() & KEY_RIGHT) && mario.onair &&
-        mario.direction == -1 && mario.dodging == false && state != 9&&(!mario.attacking)) {
+      mario.direction == -1 && mario.dodging == false && state != 9 && (!mario.attacking)) {
       mariobair();
-    }  // bair
+    } // bair
     if ((keysd & KEY_B) && (keysHeld() & KEY_DOWN) && (mario.dodging == false) &&
-        (state != 11) &&(!mario.attacking)) {
+      (state != 11) && (!mario.attacking)) {
       mariodownb();
     }
-   
-    if (keysd & KEY_SELECT && draw) {
-    	mp3_stop();
-      setBrightness(3, -31);
-      draw = false;
-      deleteTextures(ruins, ATLAS_NUM_IMAGES);
-      bi = -31;
-      scrollX = -85;
-      scrollY = 118;
-      mp3_play("/data/strike/victory/mario.mp3", 0, 0);
-       wav_free_handle(sonido);
-       sonido=0;
-		wav_free_handle(airdodgem);
-		airdodgem=0;
-		wav_free_handle(dash);
-		dash=0;
-		wav_free_handle(attack1);
-		attack1=0;
-		wav_free_handle(attackspin);
-		attackspin=0;
-		wav_free_handle(mdjump);
-		mdjump=0;
-		wav_free_handle(spinsfx);
-		spinsfx=0;
-		
-    }
-    if (wait == 2 && !draw) {
-      vramSetBankE(VRAM_E_LCD);
-      int bg3 = bgInit(3, BgType_ExRotation, BgSize_ER_256x256, 1, 1);
-      dmaCopy(winscreenTiles, bgGetGfxPtr(bg3), winscreenTilesLen);
-      dmaCopy(winscreenMap, bgGetMapPtr(bg3), winscreenMapLen);
-      dmaCopy(winscreenPal, &VRAM_E_EXT_PALETTE[bg3][0], winscreenPalLen);
-      int bg2 = bgInit(2, BgType_ExRotation, BgSize_ER_256x256, 2, 3);
-      dmaCopy(mario_winportraitTiles, bgGetGfxPtr(bg2),
-              mario_winportraitTilesLen);
-      dmaCopy(mario_winportraitMap, bgGetMapPtr(bg2), mario_winportraitMapLen);
-      dmaCopy(mario_winportraitPal, &VRAM_E_EXT_PALETTE[2][0],
-              mario_winportraitPalLen);
-      vramSetBankE(VRAM_E_BG_EXT_PALETTE);
-       
-    }
-    // si la espera llega al frame 3
-    if (wait == 3 && !draw) {
-      fadein();
-    }
-    // draw es false
-    if (!draw) {
-      wait++;
-    }
-    // limite de espera
-    if (wait >= 4) {
-      wait = 4;
-    }
 
+if (keysd & KEY_START) {
+    printf("KEY_START presionado\n");
+    scaleX = 1<<8;
+    scaleY = 1<<8;
+    projX = 1;
+    projY = 1;
+}
+
+if (keys & KEY_R) {
+    zoom += 0.01f;
+}
+if (keys & KEY_L) {
+    zoom -= 0.01f;
+    if (zoom < 0.5f) zoom = 0.5f; // mÃ­nimo
+    if (zoom > 2.0f) zoom = 2.0f; // mÃ¡ximo
+}
+
+if (keysd & KEY_START) {
+    zoom = 1.0f;
+}
     
-    if ((keysd & KEY_A) && (mario.grounded)) {
+    if ((keysd & KEY_A) && (mario.grounded) &&!mario.attacking) {
       mariojab1();
     }
-    if ((state==13) && (frame==62) ){
-    stand();
-    mario.attacking = false;
-    
-	}
-	 if ((keysd & KEY_A) && (mario.grounded) && (frame>=61)  && (frame<64) ) {
+    if ((state == 13) && (frame == 62)) {
+      stand();
+      mario.attacking = false;
+
+    }
+    if ((keysd & KEY_A) && (mario.grounded) && (frame >= 61) && (frame < 64)) {
       mariojab2();
     }
-     if ((state==14) && (frame==66) ){
-    stand();
-    mario.attacking = false;
+    if ((state == 14) && (frame == 66)) {
+      stand();
+      mario.attacking = false;
     }
-    if ((keysd & KEY_A) && (mario.grounded) && (frame>=64)  && (frame<67) ) {
+    if ((keysd & KEY_A) && (mario.grounded) && (frame >= 64) && (frame < 67)) {
       mariojab3();
     }
-      if ((state==15) && (frame==74) ){
-    stand();
-    mario.attacking = false;
+    if ((state == 15) && (frame == 74)) {
+      stand();
+      mario.attacking = false;
     }
-    
-    
-    
-    /*
-    if( keys & KEY_UP ) {
-    scrollY--; }
-    if( keys & KEY_DOWN ){
-            scrollY++;
-    }
-*/
-
-    /*	if( keys & KEY_A ){
+  scaleX = (1.0f / zoom) * 256;
+scaleY = (1.0f / zoom) * 256;
 
 
-            scaleX++; scaleY++;}
-            if( keys & KEY_B ) {
-            scaleX--; scaleY--;}
-            if( keys & KEY_START ) rcX ++;
-            if( keys & KEY_SELECT ) rcY++;
-            if( keys & KEY_L ) angle+=20;
-            if( keys & KEY_R ) angle-=20;
-    //glSpriteScale(sprite_x, sprite_y, -1, GL_FLIP_H, &ruins[frame]);
-   if (keys & KEY_LEFT) {
-      scrollX--;
-    }
-    if (keys & KEY_RIGHT) {
-      scrollX++;
-    }*/
-
+    // === 2. Aplicamos zoom al fondo (antes de bgUpdate) ===
+    bgSetRotateScale(bg2, angle, (int)scaleX, (int)scaleY);
 
     bgSetCenter(bg2, rcX, rcY);
 
@@ -802,7 +812,7 @@ int main(int argc, char **argv) {
     glFlush(0);
   }
 
-  glDeleteTextures(1, &ruins_texture_id);
+  glDeleteTextures(1, & ruins_texture_id);
 
   return 0;
 }

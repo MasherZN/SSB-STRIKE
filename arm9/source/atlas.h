@@ -7,7 +7,7 @@
 
 #define ATLAS_BITMAP_WIDTH   256
 #define ATLAS_BITMAP_HEIGHT  512
-#define ATLAS_NUM_IMAGES     77
+#define ATLAS_NUM_IMAGES     78
 
 #define ATLAS_01_png 0
 #define ATLAS_02_png 1
@@ -86,6 +86,7 @@
 #define ATLAS_75_png 74
 #define ATLAS_76_png 75
 #define ATLAS_77_png 76
+#define ATLAS_78_png 77
 
 extern const uint16_t ATLAS_texcoords[];
 
