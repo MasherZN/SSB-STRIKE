@@ -65,9 +65,9 @@ Initial commit with basic project structure.
 
 
 ## Compile it yourself
-To compile this project, you need to have BlocksDS installed. You can find instructions on how to install it on the [devkitPro website](https://blocksds.skylyrac.net/docs/)
+To compile this project, you need to have BlocksDS installed. You can find instructions on how to install it on the [BlocksDS website](https://blocksds.skylyrac.net/docs/)
 
-Once you have devkitPro installed, you can clone this repository by running:
+Once you have BlocksDS installed, you can clone this repository by running:
 ```bash
 git clone https://github.com/MasherZN/SSB-STRIKE.git
 ```
