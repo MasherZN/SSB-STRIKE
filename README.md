@@ -35,7 +35,6 @@ Please check the Tested devices part before starting.<br><br>
 - X/Y: Jump 
 - Directional pad: Move
 - L/R: Zoom in/Zoom out
-- X/Y: Switch items
 - Start: Reset Zoom
 - A: Attack
 - B: Special
