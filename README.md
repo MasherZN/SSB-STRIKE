@@ -103,5 +103,4 @@ This will create a `ssbds.nds` file in the root directory of the project.
 ![Screenshot 3](media/screenshot%20(3).png)
 ![Screenshot 4](media/screenshot%20(4).png)
 ![Screenshot 5](media/screenshot%20(5).png)
-![Screenshot 6](media/screenshot%20(6).png)
-![Screenshot 7](media/screenshot%20(7).png)
+
