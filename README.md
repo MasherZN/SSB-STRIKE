@@ -41,7 +41,7 @@ Please check the Tested devices part before starting.<br><br>
 - B: Special
 
 
-### Version 0.0 ([Download](https://github.com/AzizBgBoss/TerrariaDS/releases/tag/0.0alpha)):
+### Version 0.0 ([Download](https://github.com/Masherzn/SSB-STRIKE/releases/tag/v0.0)):
 Initial commit with basic project structure.
 - Sprite and Background rendering. ***(done)***
 - Zoom in / Zoom out Feature. ***(done)***
