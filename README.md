@@ -61,7 +61,7 @@ Initial commit with basic project structure.
 - Alternative Colors
 - Stage Creator
 - Records and trophies
-- Extra content and features for the DSi.
+
 
 
 ## Compile it yourself
