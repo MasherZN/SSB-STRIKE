@@ -1,3 +1,21 @@
+
+/*
+
+TODO
+-Make the camera follow the player(s)
+-Make the camera Zoom In and out depending on the players distance (middle point between the positions)
+-Make custom stage collisions (currently, the floor is just a fixed Y position)
+-Hitbox/Hurtbox System
+-
+FIXME
+-Run state, currently spamming left and right makes you run in the opposite side which the animation is facing
+-Sprite offsets, gl2d mirrors the image and not the offset points, needs to be fixed to be consistent facing both left and right
+
+*/
+
+
+
+
 #include <fat.h>
 
 #include <filesystem.h>
